@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+header,
+nav,
+main,
+aside,
+section,
+article,
+footer,
+div {
+    display: block;
+    cursor: default;
+}
+
+a {
+    text-decoration: none;
+}
+
+.profile-container img {
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.hero-section video {
+    max-width: 1136px;
+    max-height: 0 auto;
+    object-fit: cover;
+}
+
+.food-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.food-categories>div {
+    border: 1px solid black;
+    border-radius: 12px;
+    width: 120px;
+    height: 54px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    
+}
+
+.food-categories>a {
+    border: 1px solid black;
+    border-radius: 12px;
+    width: 120px;
+    height: 54px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.3s ease;
+    margin: 94px 0 64px 0;
+
+}
+
+.food-categories>a:hover {
+    transform: scale(1.1);
+
+}
+
+.continue-watching {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.continue-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+}
+.continue-cards>.card {
+    border-radius: 8px;
+}
+.progress-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ecommnded-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+}
+    
+.div1 {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+}
+
+.div2 {
+    grid-column: span 2 / span 2;
+    grid-column-start: 3;
+}
+
+.div3 {
+    grid-row: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 2;
+}
+
+.div4 {
+    grid-row: span 2 / span 2;
+    grid-column-start: 4;
+    grid-row-start: 2;
+}
+        
