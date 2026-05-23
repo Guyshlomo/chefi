@@ -25,23 +25,21 @@ fetch("/Final Project - Chefi/JSON/leaders.JSON")
 
             <div class="leader-meta">
               <div>
-                <span>DURATION</span>
+                <p>DURATION</p>
                 <strong>${leader.duration}</strong>
               </div>
-
               <div>
-                <span>LEVEL</span>
+                <p>LEVEL</p>
                 <strong>${leader.level}</strong>
               </div>
+              <a  href="#" class="leader-a">Subsribe</a>
             </div>
           </div>
-
-          <button class="leader-btn">+</button>
         </div>
       `;
     }
 
-    // מציגים את הראשון כברירת מחדל
+
     showLeaderContent(leaders_content[0]);
     leader_content.classList.add("show");
 
