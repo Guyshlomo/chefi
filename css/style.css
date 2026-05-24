@@ -275,13 +275,15 @@ a {
 
 .master-classes-header {
     display: flex;
+    justify-content: space-between;
+
 }
 
 .master-classes-header>div {
     margin-bottom: 64px;
 }
 
-.master-classes-header>h5 {
+.master-classes-header>div>h5 {
     font-size: 14px;
     color: #A93100;
     text-transform: uppercase;
@@ -293,7 +295,7 @@ a {
 
 }
 
-.master-classes-header>h2 {
+.master-classes-header>div>h2 {
     color: #1B1C1B;
     font-family: "Noto Serif", serif;
     font-size: 60px;
@@ -310,6 +312,7 @@ a {
     margin-bottom: 64px;
     text-decoration: underline;
     text-decoration-color: 2px solid #A93100;
+    margin-top: 70px;
 
 }
 
