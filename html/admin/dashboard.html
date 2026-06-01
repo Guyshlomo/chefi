@@ -1,80 +1,41 @@
 <!DOCTYPE html>
-<!--
-  DOCTYPE = הצהרה לדפדפן שזה HTML5 (התקן המודרני).
-  זה חייב להיות השורה הראשונה בכל קובץ HTML.
--->
+
 <html lang="en">
 
 <head>
-  <!-- מטא-תגים בסיסיים שכל דף חייב -->
   <meta charset="UTF-8">
-  <!-- UTF-8 = קידוד תווים שתומך בעברית, סינית, אימוג'י וכו' -->
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- viewport = אומר לטלפון "אל תזום-אאוט אוטומטית, הצג את הדף ברוחב המסך"
-       חובה לרספונסיביות. -->
+
 
   <title>Chefi - Admin Dashboard</title>
-  <!-- הטקסט בלשונית של הדפדפן -->
 
-  <!--
-    ============================================
-    קישורים חיצוניים (CDN) - אייקונים ופונטים
-    ============================================
-    CDN = Content Delivery Network. במקום להוריד קבצי אייקונים אלינו,
-    הדפדפן מושך אותם משרת מהיר ברשת. החיסרון: צריך אינטרנט.
-  -->
 
-  <!-- Font Awesome - ספריית אייקונים. בזכותה אפשר לכתוב <i class="fa-solid fa-star"> ולקבל כוכב -->
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-  <!-- Bootstrap Icons - ספריית אייקונים נוספת (משתמשים גם בפרטנר) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-  <!-- Google Fonts - הפונטים של העיצוב מ-Figma -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@400;600;700&display=swap"
+    rel="stylesheet">
 
-  <!-- ה-CSS שלנו. שים לב: ../../ = שתי תיקיות אחורה (מ-html/admin/ ל-chefi-main/) -->
   <link rel="stylesheet" href="../../css/admin/dashboard.css">
 </head>
 
 <body>
 
-  <!--
-    ============================================
-    מבנה הדף - תמונה כללית
-    ============================================
-    <body> מחולק ל-3 בלוקים גדולים:
-      1. <aside class="sidebar">  - הסיידבר השמאלי
-      2. <main>                   - התוכן המרכזי (Dashboard)
-      3. <footer>                 - הפוטר השחור התחתון
 
-    אנחנו עוטפים 1+2 ב-div בשם "app" כדי לסדר אותם זה לצד זה (CSS Grid).
-    הפוטר יושב מתחת ל-grid ותופס את כל הרוחב.
-  -->
 
   <div class="app">
 
-    <!--
-      ====================
-      SIDEBAR (תפריט שמאלי)
-      ====================
-      <aside> = תג סמנטי לתוכן "צד" - תפריט/בר ניווט שאינו ראשי.
-      תגי סמנטיקה (header, main, aside, footer, nav) חשובים כי:
-        * מנועי חיפוש מבינים את המבנה
-        * קוראי מסך לעיוורים מנווטים בעזרתם
-        * הקוד קריא יותר לבני אדם
-    -->
     <aside class="sidebar">
 
-      <!-- לוגו "Chefi" למעלה -->
       <div class="sidebar-logo">Chefi</div>
 
-      <!-- כרטיס הפרופיל -->
       <div class="sidebar-profile">
-        <!-- עיגול הפרופיל - כאן בלי תמונה אמיתית, סתם רקע צבעוני עם אות -->
         <div class="profile-avatar">C</div>
         <div class="profile-text">
           <strong>Chef de Cuisine</strong>
@@ -82,14 +43,9 @@
         </div>
       </div>
 
-      <!--
-        תפריט הניווט.
-        <nav> = תג סמנטי לאזור ניווט.
-        <ul> + <li> = רשימה - הדרך הנכונה סמנטית לסדר תפריט.
-      -->
+
       <nav class="sidebar-nav">
         <ul>
-          <!-- שים לב לקלאס "active" - מסמן את הדף הנוכחי. ה-CSS יעצב אותו אחרת. -->
           <li class="active">
             <a href="#"><i class="fa-solid fa-grip"></i> Dashboard</a>
           </li>
@@ -100,7 +56,6 @@
         </ul>
       </nav>
 
-      <!-- אזור תחתון בסיידבר - Upgrade + Support + Logout -->
       <div class="sidebar-bottom">
         <a href="#" class="btn-upgrade">Upgrade to Pro</a>
         <a href="#" class="sidebar-link"><i class="fa-solid fa-life-ring"></i> Support</a>
@@ -109,22 +64,13 @@
 
     </aside>
 
-    <!--
-      ====================
-      MAIN CONTENT
-      ====================
-      <main> = תג סמנטי לתוכן הראשי של הדף. צריך להיות רק אחד בדף.
-    -->
+
     <main class="content">
 
-      <!--
-        ----- כותרת עליונה -----
-        כותרת הדף + תת-כותרת + כפתור "Create New Course" בצד ימין.
-      -->
+
       <section class="page-header">
         <div>
           <h1>Chef's Dashboard</h1>
-          <!-- <h1> = הכותרת הכי חשובה בדף. עד אחת בדף לרוב, חשוב ל-SEO. -->
           <p>Welcome back, Chef. Here's what's happening today.</p>
         </div>
         <a href="#" class="btn-primary">
@@ -132,48 +78,27 @@
         </a>
       </section>
 
-      <!--
-        ----- ארבעת הריבועים העליונים -----
-        שים לב: ה-section ריק!
-        ה-id="stats-grid" יזוהה ע"י ה-JS, וה-JS ימלא את התוכן מתוך ה-JSON.
-        זה בדיוק "הפרדת נתונים מתצוגה" שדיברנו עליה.
-      -->
+
       <section class="stats-grid" id="stats-grid">
-        <!-- מתמלא דינמית מ-dashboard.js -->
       </section>
 
-      <!--
-        ----- אזור Courses -----
-        כותרת + לינק "View all" + רשת כרטיסיות (ריקה, תתמלא ב-JS).
-      -->
+
       <section class="courses-section">
 
         <div class="section-header">
           <h2>My Courses</h2>
           <a href="#" class="link-view-all">View all courses</a>
         </div>
-
         <div class="courses-grid" id="courses-grid">
-          <!-- מתמלא דינמית מ-dashboard.js -->
         </div>
-
       </section>
-
-      <!--
-        ----- טבלת ההרשמות האחרונות -----
-        טבלה אמיתית עם <table> = הדרך הסמנטית הנכונה להציג נתונים טבלאיים.
-        אל תשתמש ב-div כדי לדמות טבלה אלא אם אין ברירה.
-      -->
       <section class="signups-section">
-
         <h2>Recent Student Sign-ups</h2>
 
         <table class="signups-table">
 
-          <!-- thead = head of table. כותרות העמודות. -->
           <thead>
             <tr>
-              <!-- <th> = table header (כותרת עמודה). מודגש אוטומטית. -->
               <th>STUDENT</th>
               <th>COURSE ENROLLED</th>
               <th>DATE</th>
@@ -182,10 +107,6 @@
             </tr>
           </thead>
 
-          <!--
-            tbody = body of table. השורות עצמן.
-            ריק - יתמלא ע"י JS!
-          -->
           <tbody id="signups-tbody">
           </tbody>
 
@@ -197,12 +118,7 @@
 
   </div>
 
-  <!--
-    ====================
-    FOOTER
-    ====================
-    יושב מחוץ ל-.app כי הוא תופס את כל הרוחב, גם מתחת לסיידבר.
-  -->
+
   <footer class="site-footer">
     <h3>Chefi</h3>
     <nav class="footer-links">
@@ -216,15 +132,7 @@
     <p>© 2024 CHEFI EDITORIAL. CRAFTED FOR THE CULINARY ARTS.</p>
   </footer>
 
-  <!--
-    ====================
-    סקריפט - בסוף ה-body
-    ====================
-    למה בסוף ה-body ולא ב-<head>?
-    כי הדפדפן קורא קובץ HTML מלמעלה למטה. אם נשים את ה-JS למעלה,
-    הוא ינסה למצוא אלמנטים שעוד לא קיימים (כי הם נמצאים למטה בקובץ).
-    בסוף ה-body = כל ה-HTML כבר קיים, ה-JS יכול לעבוד עליו.
-  -->
+
   <script src="../../js/admin/dashboard.js"></script>
 
 </body>

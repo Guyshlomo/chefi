@@ -50,6 +50,52 @@ body {
 .container.active .form-box.register {
   visibility: visible;
 }
+
+.chios {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.student-chios,
+.chef-chios {
+  background-color: #fcfbfb;
+  border-radius: 24px;
+  padding: 20px 20px;
+  border: 1px solid #A93100;
+  margin-top: 40px;
+}
+
+.chios>div>a {
+  color: #1B1C1B;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: default;
+
+
+}
+
+.student-chios:hover,
+.chef-chios:hover {
+  background-color: #A93100;
+  color: white;
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(169, 49, 0, 0.18);
+}
+
+
+
+.student-chios.selected,
+.chef-chios.selected {
+  background-color: #A93100;
+  color: white;
+  border-color: #A93100;
+}
+
+
 form {
   width: 100%;
 }
@@ -172,6 +218,7 @@ form {
   left: 0;
   transition-delay: 1.2s;
 }
+
 .container.active .toggle-panel.toggle-left {
   left: -50%;
   transition-delay: 0.6s;
@@ -181,6 +228,7 @@ form {
   right: -50%;
   transition-delay: 0.6s;
 }
+
 .container.active .toggle-panel.toggle-right {
   right: 0;
   transition-delay: 1.2s;
@@ -225,6 +273,7 @@ form {
     left: 0;
     top: 70%;
   }
+
   .toggle-panel {
     width: 100%;
     height: 30%;
