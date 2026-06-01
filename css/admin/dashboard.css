@@ -1,40 +1,20 @@
-/*
-  ============================================
-  Chefi - Admin Dashboard CSS
-  ============================================
-  הקובץ מחולק לבלוקים, כל בלוק מטפל בחלק אחד של הדף.
-  סדר הבלוקים תואם לסדר ההופעה של האלמנטים בדף.
-*/
-
-
-/* ============================================
-   1. RESET + משתנים גלובליים
-   ============================================
-   *  =  כל אלמנט בדף
-   margin/padding: 0  =  מאפסים את ברירת המחדל של הדפדפן
-   box-sizing: border-box  =  הגבולות נכללים ברוחב/גובה (חיים יותר קלים)
-*/
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/*
-  :root = "השורש" של הדף. שמירת צבעים כמשתנים = כשרוצים לשנות צבע,
-  משנים במקום אחד וזה משפיע על כל הקובץ.
-  כך משתמשים: color: var(--accent);
-*/
+
 :root {
-  --bg: #FAF6F1;            /* רקע הדף - קרם בהיר */
-  --sidebar-bg: #FBF7F2;    /* רקע הסיידבר */
+  --bg: #FAF6F1;
+  --sidebar-bg: #FBF7F2;
   --card-bg: #FFFFFF;
-  --border: #EAE4DC;        /* קווי הפרדה דקיקים */
-  --text: #1F1B16;          /* טקסט עיקרי */
-  --muted: #7A726A;         /* טקסט משני (תיאורים) */
-  --accent: #A93100;        /* האדום-כתום של Chefi */
-  --green: #2E7D32;         /* ל-ACTIVE/+12% */
-  --red: #C62828;           /* ל-DRAFT/ירידה */
+  --border: #EAE4DC;
+  --text: #1F1B16;
+  --muted: #7A726A;
+  --accent: #A93100;
+  --green: #2E7D32;
+  --red: #C62828;
 }
 
 body {
@@ -44,18 +24,17 @@ body {
   line-height: 1.5;
 }
 
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
 
 
-/* ============================================
-   2. הפריסה הכוללת - .app
-   ============================================
-   CSS Grid:
-   - עמודה ראשונה רוחב קבוע 240px (סיידבר)
-   - עמודה שנייה תופסת את כל השאר (1fr = "מה שנשאר")
-   - min-height: 100vh = לפחות גובה המסך, כדי שהסיידבר ימתח עד למטה
-*/
+
 .app {
   display: grid;
   grid-template-columns: 240px 1fr;
@@ -63,17 +42,11 @@ ul { list-style: none; }
 }
 
 
-/* ============================================
-   3. SIDEBAR
-   ============================================ */
 .sidebar {
   background: var(--sidebar-bg);
   border-right: 1px solid var(--border);
   padding: 24px 16px;
-  /*
-    flex column = מסדר את הילדים אנכית.
-    זה מה שמאפשר להצמיד את ה-sidebar-bottom לתחתית בעזרת margin-top:auto.
-  */
+
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -86,7 +59,7 @@ ul { list-style: none; }
   padding: 0 8px;
 }
 
-/* כרטיס פרופיל */
+
 .sidebar-profile {
   display: flex;
   align-items: center;
@@ -100,23 +73,37 @@ ul { list-style: none; }
 .profile-avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;            /* עיגול מושלם */
+  border-radius: 50%;
   background: var(--accent);
   color: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;       /* ממרכז את האות */
+  justify-content: center;
   font-weight: 600;
   font-size: 14px;
 }
 
-.profile-text { display: flex; flex-direction: column; line-height: 1.2; }
-.profile-text strong { font-size: 13px; }
-.profile-text span { font-size: 11px; color: var(--muted); }
+.profile-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.profile-text strong {
+  font-size: 13px;
+}
+
+.profile-text span {
+  font-size: 11px;
+  color: var(--muted);
+}
 
 
-/* תפריט הניווט */
-.sidebar-nav ul { display: flex; flex-direction: column; gap: 4px; }
+.sidebar-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
 .sidebar-nav a {
   display: flex;
@@ -127,21 +114,22 @@ ul { list-style: none; }
   font-size: 14px;
   color: var(--muted);
   transition: background 0.15s, color 0.15s;
-  /* transition = מעבר חלק בין מצבים. בלי זה ההובר היה "קופץ" מיידי. */
 }
 
-.sidebar-nav a:hover { background: rgba(169, 49, 0, 0.06); color: var(--text); }
+.sidebar-nav a:hover {
+  background: rgba(169, 49, 0, 0.06);
+  color: var(--text);
+}
 
-/* פריט פעיל - הקלאס נוסף ל-<li> ב-HTML */
 .sidebar-nav li.active a {
   color: var(--accent);
   font-weight: 600;
   background: rgba(169, 49, 0, 0.08);
 }
 
-/* החלק התחתון - דבוק לתחתית */
+
 .sidebar-bottom {
-  margin-top: auto;              /* "תפוס את כל המקום הפנוי מעלי" - דוחף לתחתית */
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -157,7 +145,9 @@ ul { list-style: none; }
   font-weight: 600;
 }
 
-.btn-upgrade:hover { background: #8a2700; }
+.btn-upgrade:hover {
+  background: #8a2700;
+}
 
 .sidebar-link {
   display: flex;
@@ -169,16 +159,14 @@ ul { list-style: none; }
 }
 
 
-/* ============================================
-   4. MAIN CONTENT
-   ============================================ */
-.content { padding: 28px 32px; }
+.content {
+  padding: 28px 32px;
+}
 
 
-/* כותרת עליונה - כותרת בצד שמאל וכפתור בצד ימין */
 .page-header {
   display: flex;
-  justify-content: space-between;    /* דוחף את הילדים לקצוות */
+  justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 24px;
   gap: 16px;
@@ -190,7 +178,11 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
-.page-header p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.page-header p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
 
 .btn-primary {
   background: var(--accent);
@@ -205,15 +197,12 @@ ul { list-style: none; }
   white-space: nowrap;
 }
 
-.btn-primary:hover { background: #8a2700; }
+.btn-primary:hover {
+  background: #8a2700;
+}
 
 
-/* ============================================
-   5. STATS GRID - ארבעת הריבועים העליונים
-   ============================================
-   repeat(4, 1fr) = 4 עמודות שוות.
-   gap = רווח בין הריבועים.
-*/
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -254,25 +243,32 @@ ul { list-style: none; }
   margin-bottom: 8px;
 }
 
-/* פס דק כדמוי גרף קטן */
 .stat-card-spark {
   height: 28px;
-  background: linear-gradient(180deg, rgba(169,49,0,0.1) 0%, rgba(169,49,0,0) 100%);
+  background: linear-gradient(180deg, rgba(169, 49, 0, 0.1) 0%, rgba(169, 49, 0, 0) 100%);
   border-bottom: 2px solid var(--accent);
   border-radius: 4px 4px 0 0;
   margin-bottom: 8px;
 }
 
-/* טקסט השינוי - הצבע משתנה לפי המגמה */
-.stat-card-change { font-size: 12px; font-weight: 600; }
-.stat-card-change.up   { color: var(--green); }
-.stat-card-change.down { color: var(--red); }
-.stat-card-change.flat { color: var(--muted); }
+.stat-card-change {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-card-change.up {
+  color: var(--green);
+}
+
+.stat-card-change.down {
+  color: var(--red);
+}
+
+.stat-card-change.flat {
+  color: var(--muted);
+}
 
 
-/* ============================================
-   6. COURSES SECTION
-   ============================================ */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -286,7 +282,11 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
-.link-view-all { color: var(--accent); font-size: 13px; font-weight: 600; }
+.link-view-all {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
 
 .courses-grid {
   display: grid;
@@ -299,39 +299,42 @@ ul { list-style: none; }
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  overflow: hidden;            /* כדי שהתמונה לא תזלוג מהפינות המעוגלות */
+  overflow: hidden;
 }
 
-/* תיבת התמונה - position:relative כדי שה-badge יוכל להיות position:absolute עליה */
+
 .course-img-wrap {
   position: relative;
-  aspect-ratio: 16 / 10;       /* יחס קבוע - התמונה תמיד באותו גובה יחסי */
+  aspect-ratio: 16 / 10;
   overflow: hidden;
 }
 
 .course-img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;           /* התמונה ממלאת את התיבה בלי להתעוות */
+  object-fit: cover;
 }
 
-/* התווית ACTIVE/DRAFT - "צפה" מעל התמונה בפינה */
 .course-badge {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
   color: #fff;
   padding: 4px 10px;
   font-size: 11px;
   font-weight: 700;
-  border-radius: 999px;        /* 999px = pill shape (קופסה עם קצוות עגולים מקסימלית) */
+  border-radius: 999px;
   letter-spacing: 0.5px;
 }
 
-.course-badge.draft { background: rgba(60,60,60,0.85); }
+.course-badge.draft {
+  background: rgba(60, 60, 60, 0.85);
+}
 
-.course-content { padding: 14px; }
+.course-content {
+  padding: 14px;
+}
 
 .course-category {
   color: var(--accent);
@@ -346,10 +349,6 @@ ul { list-style: none; }
   font-size: 17px;
   font-weight: 700;
   margin-bottom: 10px;
-  /*
-    שלוש שורות הבאות = "תחתוך טקסט ארוך עם ..."
-    שימושי כשלא רוצים שכותרת ארוכה תהרוס את הפריסה.
-  */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -363,10 +362,13 @@ ul { list-style: none; }
   margin-bottom: 12px;
 }
 
-.course-actions { display: flex; gap: 8px; }
+.course-actions {
+  display: flex;
+  gap: 8px;
+}
 
 .btn-course {
-  flex: 1;                     /* שני הכפתורים מתחלקים שווה ברוחב */
+  flex: 1;
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 12px;
@@ -376,13 +378,19 @@ ul { list-style: none; }
   border: 1px solid var(--border);
 }
 
-.btn-course.primary   { background: var(--text); color: #fff; border-color: var(--text); }
-.btn-course.secondary { background: #fff; color: var(--text); }
+.btn-course.primary {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+
+.btn-course.secondary {
+  background: #fff;
+  color: var(--text);
+}
 
 
-/* ============================================
-   7. SIGNUPS TABLE
-   ============================================ */
+
 .signups-section {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -400,7 +408,7 @@ ul { list-style: none; }
 
 .signups-table {
   width: 100%;
-  border-collapse: collapse;    /* בלי זה יש רווח בין תאי טבלה */
+  border-collapse: collapse;
 }
 
 .signups-table th,
@@ -418,11 +426,17 @@ ul { list-style: none; }
   font-weight: 600;
 }
 
-/* השורה האחרונה בלי קו תחתון */
-.signups-table tr:last-child td { border-bottom: none; }
 
-/* עיגול אותיות בעמודה Student */
-.student-cell { display: flex; align-items: center; gap: 10px; }
+.signups-table tr:last-child td {
+  border-bottom: none;
+}
+
+
+.student-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 .student-avatar {
   width: 28px;
@@ -436,12 +450,13 @@ ul { list-style: none; }
   justify-content: center;
 }
 
-.amount-cell { color: var(--accent); font-weight: 700; }
+.amount-cell {
+  color: var(--accent);
+  font-weight: 700;
+}
 
 
-/* ============================================
-   8. FOOTER
-   ============================================ */
+
 .site-footer {
   background: #1A1612;
   color: #B8AFA6;
@@ -470,32 +485,57 @@ ul { list-style: none; }
   color: #B8AFA6;
 }
 
-.footer-links a:hover { color: #fff; }
-
-.site-footer p { font-size: 11px; letter-spacing: 0.5px; }
-
-
-/* ============================================
-   9. RESPONSIVE - התאמה למסכים קטנים
-   ============================================
-   @media (max-width: 900px) = "כשהמסך צר מ-900px, החל את הכללים הבאים".
-   זה ה-Responsive שהמרצה מבקש (15 נק').
-*/
-
-/* טאבלט - 4 ריבועי סטטס הופכים ל-2 */
-@media (max-width: 1100px) {
-  .stats-grid    { grid-template-columns: repeat(2, 1fr); }
-  .courses-grid  { grid-template-columns: repeat(2, 1fr); }
+.footer-links a:hover {
+  color: #fff;
 }
 
-/* טלפון - הסיידבר עובר למעלה, הכל בעמודה אחת */
+.site-footer p {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+
+
+@media (max-width: 1100px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 720px) {
-  .app           { grid-template-columns: 1fr; }
-  .sidebar       { border-right: none; border-bottom: 1px solid var(--border); }
-  .sidebar-nav ul { flex-direction: row; flex-wrap: wrap; }
-  .courses-grid  { grid-template-columns: 1fr; }
-  .content       { padding: 20px 16px; }
-  .page-header   { flex-direction: column; align-items: flex-start; }
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: 20px 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .signups-table th:nth-child(3),
-  .signups-table td:nth-child(3) { display: none; }  /* מסתירים עמודת DATE בטלפון */
+  .signups-table td:nth-child(3) {
+    display: none;
+  }
 }

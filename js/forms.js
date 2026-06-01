@@ -11,3 +11,10 @@ loginBtn.addEventListener('click', () => {
 });
 
 
+function selectChios(element) {
+  document.querySelectorAll(".student-chios, .chef-chios").forEach(function (card) {
+    card.classList.remove("selected");
+  });
+
+  element.classList.add("selected");
+}
