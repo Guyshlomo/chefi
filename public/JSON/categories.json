@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Burgers",
+    "icon": "fa-solid fa-burger"
+  },
+  {
+    "name": "Pasta",
+    "icon": "fa-solid fa-bowl-food"
+  },
+  {
+    "name": "Desserts",
+    "icon": "fa-solid fa-ice-cream"
+  },
+  {
+    "name": "Baking",
+    "icon": "fa-solid fa-bread-slice"
+  },
+  {
+    "name": "Asian",
+    "icon": "fa-solid fa-bowl-rice"
+  },
+  {
+    "name": "Meat",
+    "icon": "fa-solid fa-bacon"
+  },
+  {
+    "name": "Vegan",
+    "icon": "fa-solid fa-seedling"
+  },
+  {
+    "name": "Sushi",
+    "icon": "fa-solid fa-fish"
+  }
+]
