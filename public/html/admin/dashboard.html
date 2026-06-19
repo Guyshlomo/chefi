@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <title>Chefi - Admin Dashboard</title>
+
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../../style/admin/dashboard.css">
+</head>
+
+<body>
+
+
+
+  <div class="app">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-logo">Chefi</div>
+
+      <div class="sidebar-profile">
+        <div class="profile-avatar">C</div>
+        <div class="profile-text">
+          <strong>Chef de Cuisine</strong>
+          <span>Premium Member</span>
+        </div>
+      </div>
+
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active">
+            <a href="#"><i class="fa-solid fa-grip"></i> Dashboard</a>
+          </li>
+          <li><a href="#"><i class="fa-solid fa-book-open"></i> My Courses</a></li>
+          <li><a href="#"><i class="fa-solid fa-folder"></i> Collections</a></li>
+          <li><a href="#"><i class="fa-solid fa-chalkboard-user"></i> Instructors</a></li>
+          <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="#" class="btn-upgrade">Upgrade to Pro</a>
+        <a href="#" class="sidebar-link"><i class="fa-solid fa-life-ring"></i> Support</a>
+        <a href="#" class="sidebar-link"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
+      </div>
+
+    </aside>
+
+
+    <main class="content">
+
+
+      <section class="page-header">
+        <div>
+          <h1>Chef's Dashboard</h1>
+          <p>Welcome back, Chef. Here's what's happening today.</p>
+        </div>
+        <a href="#" class="btn-primary">
+          <i class="fa-solid fa-plus"></i> Create New Course
+        </a>
+      </section>
+
+
+      <section class="stats-grid" id="stats-grid">
+      </section>
+
+
+      <section class="courses-section">
+
+        <div class="section-header">
+          <h2>My Courses</h2>
+          <a href="#" class="link-view-all">View all courses</a>
+        </div>
+        <div class="courses-grid" id="courses-grid">
+        </div>
+      </section>
+      <section class="signups-section">
+        <h2>Recent Student Sign-ups</h2>
+
+        <table class="signups-table">
+
+          <thead>
+            <tr>
+              <th>STUDENT</th>
+              <th>COURSE ENROLLED</th>
+              <th>DATE</th>
+              <th>AMOUNT</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+
+          <tbody id="signups-tbody">
+          </tbody>
+
+        </table>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <footer class="site-footer">
+    <h3>Chefi</h3>
+    <nav class="footer-links">
+      <a href="#">THE MANIFESTO</a>
+      <a href="#">JOURNAL</a>
+      <a href="#">PRIVACY POLICY</a>
+      <a href="#">TERMS OF SERVICE</a>
+      <a href="#">CAREER</a>
+      <a href="#">CONTACT</a>
+    </nav>
+    <p>© 2024 CHEFI EDITORIAL. CRAFTED FOR THE CULINARY ARTS.</p>
+  </footer>
+
+
+  <script src="../../js/admin/dashboard.js"></script>
+
+</body>
+
+</html>
