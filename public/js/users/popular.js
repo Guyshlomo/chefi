@@ -1,4 +1,4 @@
-fetch("/JSON/popular.json")
+fetch("/api/popular")
     .then(response => response.json())
   .then(popularCourses => {
     const popularContainer = document.getElementById("popular-card");
