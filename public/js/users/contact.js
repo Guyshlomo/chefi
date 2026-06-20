@@ -50,9 +50,7 @@ contactForm.addEventListener("submit", function (event) {
   }
 
   if (isValid) {
-    formStatus.textContent = "Thank's for your message!";
-    formStatus.classList.add("success");
-    contactForm.reset();
+    contactForm.submit();
   } else {
     formStatus.textContent = "Please fix the errors and try again.";
     formStatus.classList.add("error");

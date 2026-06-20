@@ -1,4 +1,4 @@
-fetch("/JSON/categories.json")
+fetch("/api/categories")
     .then(response => response.json())
     .then(catagories => {
         const catagory = document.getElementById("foodCategories");

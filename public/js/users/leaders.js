@@ -1,4 +1,4 @@
-fetch("/JSON/leaders.json")
+fetch("/api/leaders")
   .then(response => response.json())
   .then(leaders_content => {
     const leader_list = document.getElementById("li-leaders");
