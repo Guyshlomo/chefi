@@ -1,0 +1,265 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif:wght@500;600;700&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: #1B1C1B;
+    font-family: "Inter", sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(169, 49, 0, 0.14), transparent 32%),
+        linear-gradient(135deg, #FCF9F7 0%, #F6F3F1 52%, #fff 100%);
+}
+
+.settings-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+}
+
+.settings-card {
+    width: min(100%, 520px);
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.94);
+    padding: clamp(28px, 5vw, 48px);
+    border: 1px solid #eaded8;
+    border-radius: 28px;
+    box-shadow: 0 24px 60px rgba(92, 64, 55, 0.14);
+}
+
+.settings-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 8px;
+    background: linear-gradient(90deg, #A93100, #D86B36);
+}
+
+.settings-card h1 {
+    margin: 0 0 10px;
+    color: #1B1C1B;
+    font-family: "Noto Serif", serif;
+    font-size: clamp(34px, 7vw, 48px);
+    line-height: 1;
+    letter-spacing: -1.1px;
+}
+
+.settings-card h1::after {
+    content: "Keep your Chefi profile fresh and secure.";
+    display: block;
+    margin-top: 12px;
+    color: #5C4037;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0;
+}
+
+#updateForm {
+    display: grid;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.settings-card label {
+    display: block;
+    margin-top: 8px;
+    color: #57534E;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.settings-card input {
+    width: 100%;
+    padding: 15px 16px;
+    color: #1B1C1B;
+    background: #FCF9F7;
+    border: 1px solid #e4d8d1;
+    border-radius: 14px;
+    outline: none;
+    font: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.settings-card input::placeholder {
+    color: #9a8c86;
+}
+
+.settings-card input:focus {
+    background-color: #fff;
+    border-color: #A93100;
+    box-shadow: 0 0 0 4px rgba(169, 49, 0, 0.12);
+}
+
+.settings-card button {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 14px;
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 16px;
+    background-color: #A93100;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.settings-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(169, 49, 0, 0.22);
+}
+
+.settings-card button:active {
+    transform: translateY(0);
+}
+
+.settings-card hr {
+    height: 1px;
+    margin: 30px 0 24px;
+    border: 0;
+    background: linear-gradient(90deg, transparent, #eaded8, transparent);
+}
+
+.delete-btn {
+    background: #fff !important;
+    color: #991b1b !important;
+    border: 1px solid rgba(153, 27, 27, 0.24) !important;
+}
+
+.delete-btn:hover {
+    background: #fff5f5 !important;
+    box-shadow: 0 14px 28px rgba(153, 27, 27, 0.12) !important;
+}
+
+#message {
+    min-height: 24px;
+    margin: 18px 0 0;
+    font-weight: 700;
+    text-align: center;
+}
+
+#message.success {
+    color: #1f7a3d;
+}
+
+#message.error {
+    color: #991b1b;
+}
+
+.delete-confirm-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(27, 28, 27, 0.42);
+    backdrop-filter: blur(8px);
+}
+
+.delete-confirm-backdrop.is-visible {
+    display: flex;
+}
+
+.delete-confirm-banner {
+    width: min(100%, 460px);
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #eaded8;
+    border-radius: 26px;
+    box-shadow: 0 30px 70px rgba(27, 28, 27, 0.28);
+    animation: confirmIn 0.2s ease-out;
+}
+
+.delete-confirm-icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+    color: #A93100;
+    background: #FCF1EC;
+    border-radius: 18px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.delete-confirm-banner h2 {
+    margin: 0 0 10px;
+    color: #1B1C1B;
+    font-family: "Noto Serif", serif;
+    font-size: 30px;
+    line-height: 1.1;
+}
+
+.delete-confirm-banner p {
+    margin: 0;
+    color: #5C4037;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.delete-confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.delete-confirm-actions button {
+    min-height: 46px;
+    border: 0;
+    border-radius: 14px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+}
+
+.cancel-delete {
+    color: #1B1C1B;
+    background: #F6F3F1;
+}
+
+.confirm-delete {
+    color: #fff;
+    background: #991b1b;
+}
+
+@keyframes confirmIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .settings-page {
+        align-items: stretch;
+        padding: 18px;
+    }
+
+    .settings-card {
+        border-radius: 22px;
+    }
+
+    .delete-confirm-actions {
+        grid-template-columns: 1fr;
+    }
+}

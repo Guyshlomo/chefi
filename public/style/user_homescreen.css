@@ -195,6 +195,7 @@ header {
 .profile-menu a:hover {
   background-color: #f5f5f4;
   color: #A93100;
+  font-weight: bold;
 }
 
 .profile-menu.show {
