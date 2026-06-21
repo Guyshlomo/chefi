@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "category": "French Cuisine",
+    "badge": "BEST SELLER",
+    "title": "Classic French Foundations",
+    "description": "The essential guide to the five mother sauces and traditional techniques that define world-class cooking.",
+    "duration": "12h 45m",
+    "level": "Intermediate",
+    "image": "/images/user_pic/french_cuisine.png"
+  },
+
+  {
+    "id": 2,
+    "category": "Modern Baking",
+    "badge": "TRENDING",
+    "title": "Modern Baking Essentials",
+    "description": "Master dough, texture, temperature control, and creative pastry techniques for modern baking.",
+    "duration": "9h 20m",
+    "level": "Beginner",
+    "image": "/images/user_pic/modern_baking.png"
+  },
+  {
+    "id": 3,
+    "category": "Knife Skills",
+    "badge": "POPULAR",
+    "title": "Professional Knife Skills",
+    "description": "Learn slicing, dicing, chopping, and precision cuts used by professional chefs.",
+    "duration": "6h 10m",
+    "level": "Beginner",
+    "image": "/images/user_pic/knife_skills.png"
+  },
+  {
+    "id": 4,
+    "category": "Molecular Gastronomy",
+    "badge": "ADVANCED",
+    "title": "Molecular Gastronomy Lab",
+    "description": "Explore foams, gels, spheres, textures, and modern plating techniques using food science.",
+    "duration": "14h 30m",
+    "level": "Advanced",
+    "image": "/images/user_pic/molecular_gastronomy.png"
+  }
+]
