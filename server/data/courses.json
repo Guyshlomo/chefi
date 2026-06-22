@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "title": "Italian Pasta Masterclass",
+        "chef_name": "Chef Marco",
+        "category": "italian",
+        "level": "beginner",
+        "duration": "2 hours",
+        "price": 49,
+        "image": "/images/courses/pasta.jpg",
+        "description": "Learn how to make fresh pasta, classic sauces and Italian plating."
+    },
+    {
+        "id": 2,
+        "title": "Artisan Bread Baking",
+        "chef_name": "Chef Emma",
+        "category": "baking",
+        "level": "intermediate",
+        "duration": "3 hours",
+        "price": 59,
+        "image": "/images/courses/bread.jpg",
+        "description": "Master sourdough, focaccia and professional bread techniques."
+    },
+    {
+        "id": 3,
+        "title": "Asian Street Food",
+        "chef_name": "Chef Lee",
+        "category": "asian",
+        "level": "beginner",
+        "duration": "2.5 hours",
+        "price": 55,
+        "image": "/images/courses/asian.jpg",
+        "description": "Cook noodles, dumplings and street food dishes from Asia."
+    },
+    {
+        "id": 4,
+        "title": "French Desserts",
+        "chef_name": "Chef Claire",
+        "category": "desserts",
+        "level": "advanced",
+        "duration": "4 hours",
+        "price": 79,
+        "image": "/images/courses/desserts.jpg",
+        "description": "Learn macarons, crème brûlée and classic French pastry."
+    },
+    {
+        "id": 5,
+        "title": "Healthy Meal Prep",
+        "chef_name": "Chef Daniel",
+        "category": "healthy",
+        "level": "beginner",
+        "duration": "1.5 hours",
+        "price": 39,
+        "image": "/images/courses/healthy.jpg",
+        "description": "Plan and cook healthy meals for the full week."
+    }
+]

@@ -1,0 +1,31 @@
+
+footer {
+  background-color: #E7E5E4;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.footer-content>div {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  font-family: 'NimbusSanLRegular', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+
+}
+
+.footer-content>div>a {
+  gap: 32px;
+  color: #78716C;
+}
+
+.footer-content>div>a:not(:last-child) {
+  margin-right: 32px;
+}

@@ -1,14 +1,13 @@
 require("dotenv").config();
-
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const cookieParser = require("cookie-parser");
-
 const connectDB = require("./config/dbConnect");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
-const requireAuth = require("./middlewares/authMiddleware");
+const { requireAuth, requireRole } = require("./middlewares/authMiddleware");
+const courseRoutes = require("./routes/courseRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,6 +28,7 @@ app.use((req, res, next) => {
 
 app.use("/", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/courses", courseRoutes);
 
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -37,8 +37,16 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-app.get("/home", requireAuth, (req, res) => {
+app.get("/home", requireAuth, requireRole("student"), (req, res) => {
     res.sendFile(path.join(__dirname, "../public/html/users/HomeScreen.html"));
+});
+
+app.get("/all-courses", requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/users/AllCourses.html"));
+});
+
+app.get("/dashboard", requireAuth, requireRole("chef"), (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/admin/dashboard.html"));
 });
 
 app.get("/settings", requireAuth, (req, res) => {

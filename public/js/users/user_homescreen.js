@@ -1,13 +1,37 @@
 const params = new URLSearchParams(window.location.search);
 const username = params.get("username");
+const usernameText = document.getElementById("usernameText");
 
-if (username) {
-    const usernameText = document.getElementById("usernameText");
+async function setLoggedInUsername() {
+  if (!usernameText) {
+    return;
+  }
 
-    if (usernameText) {
-        usernameText.textContent = username;
+  if (username) {
+    usernameText.textContent = username;
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/users/me", {
+      credentials: "include"
+    });
+
+    if (!response.ok) {
+      return;
     }
+
+    const user = await response.json();
+
+    if (user.username) {
+      usernameText.textContent = user.username;
+    }
+  } catch (error) {
+    console.error("Could not load logged-in user:", error);
+  }
 }
+
+setLoggedInUsername();
 
 
 const profileDropdown = document.querySelector(".profile-dropdown");
@@ -47,3 +71,36 @@ if (profileDropdown && profileMenu) {
     profileMenu.classList.remove("show");
   });
 }
+
+const pageLinks = document.querySelectorAll(".navbar-nav .nav-link[href]");
+
+pageLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const href = link.getAttribute("href");
+
+    if (!href || href.startsWith("#") || link.classList.contains("dropdown-toggle")) {
+      return;
+    }
+
+    const targetUrl = new URL(href, window.location.href);
+
+    if (targetUrl.origin !== window.location.origin || targetUrl.href === window.location.href) {
+      return;
+    }
+
+    event.preventDefault();
+
+    document.querySelectorAll(".navbar-nav .nav-link.active").forEach((activeLink) => {
+      activeLink.classList.remove("active");
+      activeLink.removeAttribute("aria-current");
+    });
+
+    link.classList.add("active");
+    link.setAttribute("aria-current", "page");
+    document.body.classList.add("page-is-leaving");
+
+    window.setTimeout(() => {
+      window.location.href = targetUrl.href;
+    }, 220);
+  });
+});

@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/style/user_homescreen.css">
+    <link rel="stylesheet" href="../../style/user_homescreen.css">
+    <link rel="stylesheet" href="../../style/user_navbar.css">
+    <link rel="stylesheet" href="../../style/user_footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -27,10 +29,6 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary wrapper">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Chefi</a>
-                <form class="d-flex search-form mobile-navbar-search" role="search">
-                    <i class="bi bi-search search-icon"></i>
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
-                </form>
                 <div class="navbar-actions">
                     <button class="notification-btn" type="button" aria-label="Notifications">
                         <i class="bi bi-bell"></i>
@@ -47,7 +45,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Explore</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">All Courses</a>
+                            <a class="nav-link" href="/all-courses">All Courses</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -64,15 +62,11 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex search-form desktop-search-form" role="search">
-                        <i class="bi bi-search search-icon"></i>
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    </form>
                     <div class="profile-container">
                         <i class="bi bi-bell"></i>
                         <i class="bi bi-cart"></i>
                         <div class="profile-dropdown">
-                            <img src="/images/user_pic/profilepic.png" alt="profile" class="profile-img"
+                            <img src="../../images/user_pic/profilepic.png" alt="profile" class="profile-img"
                                 id="profileBtn">
                             <div class="profile-menu" id="profileMenu">
                                 <a href="/settings">Settings</a>
@@ -90,9 +84,9 @@
     </header>
     <main>
         <section class="hero-section">
-            <img src="/images/user_pic/hero-section.png">
+            <img src="../../images/user_pic/hero-section.png">
             <div class="hero-content wrapper">
-                <h5>Hello, Chef <span id="usernameText"></span></h5>
+                <h5>Hello chef <span id="usernameText"></span></h5>
                 <h2>Ready to master the<br>
                     next signature dish?</h2>
                 <p>You have 2 courses in progress. Your skills have grown by
@@ -109,7 +103,7 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="/images/user_pic/continue2.png" class="img-fluid rounded-start card-img"
+                            <img src="../../images/user_pic/continue2.png" class="img-fluid rounded-start card-img"
                                 alt="continue watching">
                         </div>
                         <div class="col-md-8">
@@ -134,7 +128,7 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="/images/user_pic/continue1.png" class="img-fluid rounded-start card-img"
+                            <img src="../../images/user_pic/continue1.png" class="img-fluid rounded-start card-img"
                                 alt="continue watching">
                         </div>
                         <div class="col-md-8">
@@ -166,7 +160,7 @@
             </div>
             <div class="recommnded-grid wrapper">
                 <div class="div1">
-                    <img src="/images/user_pic/indianfood.png" alt="Indian Food">
+                    <img src="../../images/user_pic/indianfood.png" alt="Indian Food">
                     <div class="recommended-content">
                         <h5>MasterClass</h5>
                         <h2>The Spice Routes of India</h2>
@@ -182,20 +176,20 @@
                     </div>
                 </div>
                 <div class="div2">
-                    <img src="/images/user_pic/steak.png" alt="Steak">
+                    <img src="../../images/user_pic/steak.png" alt="Steak">
                     <div class="recommended-content">
                         <h3>Steakhouse Secrets: The Reverse Sear</h3>
                         <p>Chef Julian Rossi<span> • 1.5 Hours</span></p>
                     </div>
                 </div>
                 <div class="div3">
-                    <img src="/images/user_pic/wine.png" alt="Wine">
+                    <img src="../../images/user_pic/wine.png" alt="Wine">
                     <div class="recommended-content">
                         <h4>Wine Pairing 101</h4>
                     </div>
                 </div>
                 <div class="div4">
-                    <img src="/images/user_pic/bread.png" alt="Bread">
+                    <img src="../../images/user_pic/bread.png" alt="Bread">
                     <div class="recommended-content">
                         <h4>Advanced Sourdough</h4>
                     </div>
@@ -227,11 +221,10 @@
             </div>
         </div>
     </footer>
-    <script src="/js/users/user_homescreen.js"></script>
-    <script src="/js/users/category.js"></script>
-    <script src="/js/users/popular.js"></script>
-    <script src="/js/users/leaders.js"></script>
-    <script src="/js/users/user_homescreen.js"></script>
+    <script src="../../js/users/user_homescreen.js"></script>
+    <script src="../../js/users/category.js"></script>
+    <script src="../../js/users/popular.js"></script>
+    <script src="../../js/users/leaders.js"></script>
 </body>
 
 </html>
