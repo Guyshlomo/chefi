@@ -15,8 +15,26 @@ function requireAuth(req, res, next) {
         next();
     } catch (error) {
         console.log("Invalid token:", error.message);
+
         return res.redirect("/");
     }
 }
 
-module.exports = requireAuth;
+function requireRole(role) {
+    return function (req, res, next) {
+        if (!req.user) {
+            return res.redirect("/");
+        }
+
+        if (req.user.role !== role) {
+            return res.status(403).send("Access denied");
+        }
+
+        next();
+    };
+}
+
+module.exports = {
+    requireAuth,
+    requireRole
+};
