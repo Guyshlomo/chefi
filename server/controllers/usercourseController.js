@@ -1,4 +1,5 @@
 const UserCourse = require("../models/UserCourse");
+const Course = require("../models/Course");
 
 async function addCourseToUser(req, res) {
     try {
@@ -43,7 +44,10 @@ async function getMyCourses(req, res) {
     try {
         const userId = req.user.id;
 
-        const courses = await UserCourse.find({ userId: userId }).sort({ lastViewedAt: -1, updatedAt: -1 });
+        const courses = await UserCourse.find({ userId: userId }).sort({
+            lastViewedAt: -1,
+            updatedAt: -1
+        });
 
         res.status(200).json(courses);
     } catch (error) {
@@ -57,7 +61,10 @@ async function getMyCourse(req, res) {
         const userId = req.user.id;
         const { courseId } = req.params;
 
-        const course = await UserCourse.findOne({ userId: userId, courseId: courseId });
+        const course = await UserCourse.findOne({
+            userId: userId,
+            courseId: courseId
+        });
 
         if (!course) {
             return res.status(404).json({ message: "Course not found in your library" });
@@ -133,10 +140,42 @@ async function recordCourseView(req, res) {
     }
 }
 
+async function getRecommendedForUser(req, res) {
+    try {
+        const userId = req.user.id;
+
+        const myCourses = await UserCourse.find({ userId: userId });
+
+        const myCourseIds = myCourses.map(course => Number(course.courseId));
+        const myCategories = myCourses.map(course => course.category);
+
+        let recommendedCourses = [];
+
+        if (myCategories.length > 0) {
+            recommendedCourses = await Course.find({
+                category: { $in: myCategories },
+                id: { $nin: myCourseIds }
+            }).limit(4);
+        }
+
+        if (recommendedCourses.length === 0) {
+            recommendedCourses = await Course.find({
+                id: { $nin: myCourseIds }
+            }).limit(4);
+        }
+
+        res.status(200).json(recommendedCourses);
+    } catch (error) {
+        console.error("Recommended courses error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 module.exports = {
     addCourseToUser,
     getMyCourses,
     getMyCourse,
     updateCourseProgress,
-    recordCourseView
+    recordCourseView,
+    getRecommendedForUser
 };
