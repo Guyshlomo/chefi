@@ -41,6 +41,22 @@ body {
     background: linear-gradient(90deg, #A93100, #D86B36);
 }
 
+.settings-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 18px;
+    color: #57534E;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.settings-back-btn:hover {
+    color: #A93100;
+}
+
 .settings-card h1 {
     margin: 0 0 10px;
     color: #1B1C1B;
@@ -147,6 +163,12 @@ body {
     margin: 18px 0 0;
     font-weight: 700;
     text-align: center;
+}
+
+#message.loading {
+    color: #57534E;
+    background: #F6F3F1;
+    border: 1px solid #eaded8;
 }
 
 #message.success {

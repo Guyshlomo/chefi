@@ -1,17 +1,34 @@
-fetch("/api/categories")
-    .then(response => response.json())
-    .then(catagories => {
-        const catagory = document.getElementById("foodCategories");
+const categoryContainer = document.getElementById("foodCategories");
 
-        catagory.innerHTML = catagories.map(card_catagory => {
-            return `
-        <a href="#">
-          <i class="${card_catagory.icon}"></i>
-          <span>${card_catagory.name}</span>
-        </a>
-      `;
-        }).join("");
-    })
-    .catch(error => {
-        console.error("Error loading categories:", error);
-    });
+async function loadCategories() {
+    if (!categoryContainer) {
+        return;
+    }
+
+    ChefiUI.setStatus(categoryContainer, "loading", "Loading categories...");
+
+    const result = await ChefiUI.fetchJson("/api/categories");
+
+    if (!result.ok) {
+        ChefiUI.setStatus(categoryContainer, "error", result.error);
+        return;
+    }
+
+    if (!Array.isArray(result.data) || result.data.length === 0) {
+        ChefiUI.setStatus(categoryContainer, "empty", "No categories available right now.");
+        return;
+    }
+
+    categoryContainer.innerHTML = result.data.map((category) => {
+        const searchValue = encodeURIComponent(category.name);
+
+        return `
+            <a href="/all-courses?search=${searchValue}">
+                <i class="${ChefiUI.escapeHtml(category.icon)}"></i>
+                <span>${ChefiUI.escapeHtml(category.name)}</span>
+            </a>
+        `;
+    }).join("");
+}
+
+loadCategories();

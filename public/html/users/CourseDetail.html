@@ -9,7 +9,7 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../../style/ui_status.css">
     <link rel="stylesheet" href="../../style/user_navbar.css">
-    <link rel="stylesheet" href="../../style/allcourses.css">
+    <link rel="stylesheet" href="../../style/course_detail.css">
     <link rel="stylesheet" href="../../style/user_footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -20,9 +20,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Abel&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/nimbus-sans-l" type="text/css" />
-
-    <title>Chefi - All Courses</title>
+    <title>Chefi - Course Detail</title>
 </head>
 
 <body>
@@ -80,35 +78,83 @@
             </div>
         </nav>
     </header>
-    <main>
-        <h1>All Cooking Courses</h1>
 
-        <section class="filters">
-            <input type="text" id="searchInput" placeholder="Search courses...">
+    <main class="course-detail-page">
+        <section class="course-hero wrapper">
+            <div class="course-hero-copy">
+                <p class="eyebrow">Course Detail</p>
+                <h1 id="courseTitle">Loading course...</h1>
+                <div class="course-hero-meta">
+                    <span id="courseChef">Chef</span>
+                    <span><i class="fa-solid fa-star"></i> 4.9 reviews</span>
+                    <strong id="coursePrice">$0</strong>
+                </div>
+            </div>
 
-            <select id="categoryFilter">
-                <option value="">All Categories</option>
-                <option value="italian">Italian</option>
-                <option value="baking">Baking</option>
-                <option value="asian">Asian</option>
-                <option value="desserts">Desserts</option>
-                <option value="healthy">Healthy</option>
-            </select>
-
-            <select id="levelFilter">
-                <option value="">All Levels</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-
-            <button id="searchBtn">Search</button>
+            <div class="course-preview">
+                <img id="courseImage" src="../../images/user_pic/hero-section.png" alt="Course preview">
+                <div class="preview-caption">
+                    <strong>Course Preview</strong>
+                    <span id="previewDuration">Loading...</span>
+                </div>
+            </div>
         </section>
 
-        <section id="coursesGrid" class="courses-grid">
-            <p class="ui-status ui-status--loading">Loading courses...</p>
+        <section class="course-layout wrapper">
+            <div class="course-main-content">
+                <article class="detail-card about-card">
+                    <h2>About this course</h2>
+                    <p id="courseDescription"></p>
+                    <div class="course-facts">
+                        <div>
+                            <span>Duration</span>
+                            <strong id="courseDuration"></strong>
+                        </div>
+                        <div>
+                            <span>Skill Level</span>
+                            <strong id="courseLevel"></strong>
+                        </div>
+                        <div>
+                            <span>Category</span>
+                            <strong id="courseCategory"></strong>
+                        </div>
+                        <div>
+                            <span>Access</span>
+                            <strong>Lifetime</strong>
+                        </div>
+                    </div>
+                </article>
+
+                <section class="curriculum-section">
+                    <h2>Course Curriculum</h2>
+                    <div class="curriculum-list" id="curriculumList">
+                        <p class="ui-status ui-status--loading">Loading curriculum...</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="course-sidebar">
+                <div class="buy-card">
+                    <h2 id="sidebarPrice">$0</h2>
+                    <p>Add this course to your library and continue on the home page.</p>
+                    <button type="button" id="buyNowBtn">Add to My Courses</button>
+                    <p id="courseActionStatus" class="ui-status ui-status--loading">Loading course details...</p>
+                    <a href="/all-courses">Back to All Courses</a>
+                </div>
+
+                <div class="included-card">
+                    <h3>What's included</h3>
+                    <ul>
+                        <li>High-definition video lessons</li>
+                        <li>Downloadable recipe companion</li>
+                        <li>Direct Q&A with the chef</li>
+                        <li>Certificate of completion</li>
+                    </ul>
+                </div>
+            </aside>
         </section>
     </main>
+
     <footer>
         <div class="footer-content wrapper">
             <div>
@@ -121,10 +167,11 @@
             </div>
         </div>
     </footer>
+
     <script src="../../js/users/ui_status.js"></script>
     <script src="../../js/users/my_classes_shared.js"></script>
     <script src="../../js/users/user_homescreen.js"></script>
-    <script src="../../js/users/allcourses.js"></script>
+    <script src="../../js/users/course_detail.js"></script>
 </body>
 
 </html>

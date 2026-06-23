@@ -1,0 +1,48 @@
+.ui-status {
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.ui-status--loading {
+    color: #57534E;
+    background: #F6F3F1;
+    border: 1px solid #eaded8;
+}
+
+.ui-status--success {
+    color: #166534;
+    background: #ecfdf3;
+    border: 1px solid #bbf7d0;
+}
+
+.ui-status--error {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.ui-status--empty {
+  color: #57534E;
+  background: #FCF9F7;
+  border: 1px dashed #d6d3d1;
+}
+
+.courses-grid .ui-status,
+.recipe-grid .ui-status,
+.popular-container .ui-status,
+.continue-cards .ui-status,
+.leaders .ui-status,
+.catagory-content .ui-status,
+.food-categories .ui-status {
+  width: 100%;
+}
+
+.courses-grid .ui-status,
+.recipe-grid .ui-status,
+.popular-container .ui-status {
+  grid-column: 1 / -1;
+}

@@ -8,13 +8,13 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const { requireAuth, requireRole } = require("./middlewares/authMiddleware");
 const courseRoutes = require("./routes/courseRoutes");
-
+const recipeRoutes = require("./routes/recipeRoutes");
+const userCourseRoutes = require("./routes/userCourseRoutes");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(cookieParser());
 
 app.use((req, res, next) => {
@@ -29,7 +29,8 @@ app.use((req, res, next) => {
 app.use("/", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/courses", courseRoutes);
-
+app.use("/api/recipes", recipeRoutes);
+app.use("/api/user-courses", userCourseRoutes);
 app.use(express.static(path.join(__dirname, "../public")));
 
 // Pages
@@ -43,6 +44,18 @@ app.get("/home", requireAuth, requireRole("student"), (req, res) => {
 
 app.get("/all-courses", requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/html/users/AllCourses.html"));
+});
+
+app.get("/course-detail", requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/users/CourseDetail.html"));
+});
+
+app.get("/meal-detail", requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/users/MealDetail.html"));
+});
+
+app.get("/my-classes", requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/users/MyClasses.html"));
 });
 
 app.get("/dashboard", requireAuth, requireRole("chef"), (req, res) => {
@@ -101,12 +114,20 @@ app.post("/contact", (req, res) => {
     const subject = req.body.subject;
     const message = req.body.message;
 
+    if (!fullName || !email || !subject || !message) {
+        return res.status(400).json({
+            message: "All fields are required."
+        });
+    }
+
     console.log("Full Name:", fullName);
     console.log("Email:", email);
     console.log("Subject:", subject);
     console.log("Message:", message);
 
-    res.status(200).send("Thank you for your message!");
+    res.status(200).json({
+        message: "Thank you for your message! We will get back to you soon."
+    });
 });
 
 async function startServer() {

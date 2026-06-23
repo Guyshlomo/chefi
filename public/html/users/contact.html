@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../style/ui_status.css">
   <link rel="stylesheet" href="../../style/contact.css">
 
   <title>Chefi - Contact</title>
@@ -27,7 +28,7 @@
         </p>
       </div>
 
-      <form id="contactForm" action="http://localhost:8080/contact" method="POST" novalidate>
+      <form id="contactForm" action="/contact" method="POST" novalidate>
         <div class="form-group">
           <label for="fullName">Full Name</label>
           <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
@@ -66,6 +67,7 @@
     </section>
   </main>
 
+  <script src="../../js/users/ui_status.js"></script>
   <script src="../../js/users/contact.js"></script>
 </body>
 

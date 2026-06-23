@@ -133,6 +133,10 @@ body {
   font-weight: 700;
 }
 
+.form-status.loading {
+  color: #57534E;
+}
+
 .form-status.success {
   color: #1f7a3f;
 }
