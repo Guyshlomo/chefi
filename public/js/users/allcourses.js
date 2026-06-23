@@ -3,37 +3,30 @@ const searchInput = document.getElementById("searchInput");
 const categoryFilter = document.getElementById("categoryFilter");
 const levelFilter = document.getElementById("levelFilter");
 const searchBtn = document.getElementById("searchBtn");
+const mobileSearchInput = document.querySelector(".mobile-navbar-search input");
 
-async function getCourses() {
-    const search = searchInput.value;
-    const category = categoryFilter.value;
-    const level = levelFilter.value;
+function applyQueryParams() {
+    const params = new URLSearchParams(window.location.search);
 
-    let url = `/api/courses?`;
-
-    if (search) {
-        url += `search=${encodeURIComponent(search)}&`;
+    if (params.get("search")) {
+        searchInput.value = params.get("search");
     }
 
-    if (category) {
-        url += `category=${encodeURIComponent(category)}&`;
+    if (params.get("category")) {
+        categoryFilter.value = params.get("category");
     }
 
-    if (level) {
-        url += `level=${encodeURIComponent(level)}&`;
+    if (params.get("level")) {
+        levelFilter.value = params.get("level");
     }
-
-    const response = await fetch(url, {
-        method: "GET",
-        credentials: "include"
-    });
-
-    const courses = await response.json();
-
-    showCourses(courses);
 }
 
 function showCourses(courses) {
+    if (!Array.isArray(courses) || courses.length === 0) {
+        ChefiUI.setStatus(coursesGrid, "empty", "No courses match your search. Try different filters.");
+        return;
+    }
+
     coursesGrid.innerHTML = "";
 
     courses.forEach((course) => {
@@ -43,26 +36,22 @@ function showCourses(courses) {
         courseCard.setAttribute("role", "link");
         courseCard.setAttribute("aria-label", `Open ${course.title} course detail`);
 
-        const imageUrl = course.image ? course.image.trim() : "";
-
-        console.log("IMAGE URL:", imageUrl);
+        const imageUrl = course.image ? course.image.trim() : "../../images/user_pic/hero-section.png";
 
         courseCard.innerHTML = `
-            <img class="course-img" src="${imageUrl}" alt="${course.title}">
+            <img class="course-img" src="${ChefiUI.escapeHtml(imageUrl)}" alt="${ChefiUI.escapeHtml(course.title)}">
             <div class="course-content">
-                <h2>${course.title}</h2>
-                <p>${course.description}</p>
+                <h2>${ChefiUI.escapeHtml(course.title)}</h2>
+                <p>${ChefiUI.escapeHtml(course.description)}</p>
                 <div class="course-meta-list">
-                    <span class="chef-meta"><strong>Chef</strong>${course.chef_name}</span>
-                    <span><strong>Category</strong>${course.category}</span>
-                    <span><strong>Level</strong>${course.level}</span>
-                    <span><strong>Duration</strong>${course.duration}</span>
-                    <span class="price-meta"><strong>Price</strong>$${course.price}</span>
+                    <span class="chef-meta"><strong>Chef</strong>${ChefiUI.escapeHtml(course.chef_name)}</span>
+                    <span><strong>Category</strong>${ChefiUI.escapeHtml(course.category)}</span>
+                    <span><strong>Level</strong>${ChefiUI.escapeHtml(course.level)}</span>
+                    <span><strong>Duration</strong>${ChefiUI.escapeHtml(course.duration)}</span>
+                    <span class="price-meta"><strong>Price</strong>$${ChefiUI.escapeHtml(course.price)}</span>
                 </div>
             </div>
         `;
-
-        coursesGrid.appendChild(courseCard);
 
         courseCard.addEventListener("click", () => {
             window.location.href = `/course-detail?id=${course.id || course._id}`;
@@ -74,26 +63,59 @@ function showCourses(courses) {
                 window.location.href = `/course-detail?id=${course.id || course._id}`;
             }
         });
+
+        coursesGrid.appendChild(courseCard);
     });
 }
 
+async function getCourses() {
+    ChefiUI.setStatus(coursesGrid, "loading", "Loading courses...");
 
-searchBtn.addEventListener("click", () => {
-    getCourses();
-});
+    const search = searchInput.value.trim();
+    const category = categoryFilter.value;
+    const level = levelFilter.value;
+    const params = new URLSearchParams();
 
-searchInput.addEventListener("input", () => {
-    getCourses();
-});
+    if (search) {
+        params.set("search", search);
+    }
 
-categoryFilter.addEventListener("change", () => {
-    getCourses();
-});
+    if (category) {
+        params.set("category", category);
+    }
 
-levelFilter.addEventListener("change", () => {
-    getCourses();
-});
+    if (level) {
+        params.set("level", level);
+    }
 
-window.onload = () => {
-    getCourses();
-};
+    const query = params.toString();
+    const url = query ? `/api/courses?${query}` : "/api/courses";
+    const result = await ChefiUI.fetchJson(url);
+
+    if (!result.ok) {
+        ChefiUI.setStatus(coursesGrid, "error", result.error);
+        return;
+    }
+
+    if (!Array.isArray(result.data)) {
+        ChefiUI.setStatus(coursesGrid, "error", "Could not load courses.");
+        return;
+    }
+
+    showCourses(result.data);
+}
+
+searchBtn.addEventListener("click", getCourses);
+searchInput.addEventListener("input", getCourses);
+categoryFilter.addEventListener("change", getCourses);
+levelFilter.addEventListener("change", getCourses);
+
+if (mobileSearchInput) {
+    mobileSearchInput.addEventListener("input", () => {
+        searchInput.value = mobileSearchInput.value;
+        getCourses();
+    });
+}
+
+applyQueryParams();
+getCourses();

@@ -1,18 +1,32 @@
 const updateForm = document.getElementById("updateForm");
 const deleteBtn = document.getElementById("deleteBtn");
 const message = document.getElementById("message");
+const submitBtn = updateForm?.querySelector('button[type="submit"]');
 
 function showMessage(text, type) {
+    if (!message) {
+        return;
+    }
+
     message.className = type;
     message.textContent = text;
 }
 
-async function getResponseData(response) {
-    try {
-        return await response.json();
-    } catch (error) {
-        return { message: response.ok ? "Action completed successfully." : "Something went wrong." };
+async function loadCurrentUser() {
+    showMessage("Loading account details...", "loading");
+
+    const result = await ChefiUI.fetchJson("/api/users/me");
+
+    if (!result.ok) {
+        showMessage(result.error, "error");
+        return;
     }
+
+    document.getElementById("username").value = result.data.username || "";
+    document.getElementById("email").value = result.data.email || "";
+    document.getElementById("password").value = "";
+    message.className = "";
+    message.textContent = "";
 }
 
 function createDeleteBanner() {
@@ -51,16 +65,18 @@ function closeDeleteBanner() {
 updateForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    const response = await fetch("/api/users/me", {
+    ChefiUI.setButtonLoading(submitBtn, true, "Updating...", "Update Details");
+    showMessage("Updating your account...", "loading");
+
+    const result = await ChefiUI.fetchJson("/api/users/me", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        credentials: "include",
         body: JSON.stringify({
             username,
             email,
@@ -68,17 +84,18 @@ updateForm.addEventListener("submit", async (event) => {
         })
     });
 
-    const data = await getResponseData(response);
+    ChefiUI.setButtonLoading(submitBtn, false, "Updating...", "Update Details");
 
-    if (response.ok) {
-        showMessage(data.message, "success");
-    } else {
-        showMessage(data.message, "error");
+    if (!result.ok) {
+        showMessage(result.error, "error");
+        return;
     }
+
+    showMessage(result.data?.message || "Account updated successfully.", "success");
+    document.getElementById("password").value = "";
 });
 
 deleteBtn.addEventListener("click", openDeleteBanner);
-
 cancelDeleteBtn.addEventListener("click", closeDeleteBanner);
 
 deleteBanner.addEventListener("click", (event) => {
@@ -88,22 +105,20 @@ deleteBanner.addEventListener("click", (event) => {
 });
 
 confirmDeleteBtn.addEventListener("click", async () => {
-    confirmDeleteBtn.disabled = true;
-    confirmDeleteBtn.textContent = "Deleting...";
+    ChefiUI.setButtonLoading(confirmDeleteBtn, true, "Deleting...", "Delete Account");
 
-    const response = await fetch("/api/users/me", {
-        method: "DELETE",
-        credentials: "include"
+    const result = await ChefiUI.fetchJson("/api/users/me", {
+        method: "DELETE"
     });
 
-    const data = await getResponseData(response);
-
-    if (response.ok) {
-        window.location.href = "/";
-    } else {
-        showMessage(data.message, "error");
-        confirmDeleteBtn.disabled = false;
-        confirmDeleteBtn.textContent = "Delete Account";
+    if (!result.ok) {
+        showMessage(result.error, "error");
+        ChefiUI.setButtonLoading(confirmDeleteBtn, false, "Deleting...", "Delete Account");
         closeDeleteBanner();
+        return;
     }
+
+    window.location.href = "/";
 });
+
+loadCurrentUser();

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../style/ui_status.css">
     <link rel="stylesheet" href="../../style/user_navbar.css">
     <link rel="stylesheet" href="../../style/course_detail.css">
     <link rel="stylesheet" href="../../style/user_footer.css">
@@ -28,9 +29,6 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="/home">Chefi</a>
                 <div class="navbar-actions">
-                    <button class="notification-btn" type="button" aria-label="Notifications">
-                        <i class="bi bi-bell"></i>
-                    </button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +41,6 @@
                             <img src="../../images/user_pic/profilepic.png" alt="profile" class="mobile-profile-img">
                             My Profile
                         </a>
-                        <a class="mobile-menu-link mobile-cart-link" href="#">Cart</a>
                     </div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -57,19 +54,12 @@
                                 aria-expanded="false">
                                 My Classes
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Saved Courses</a></li>
-                                <li><a class="dropdown-item" href="#">In Progress</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Certificates</a></li>
+                            <ul class="dropdown-menu my-classes-menu" id="myClassesMenu">
+                                <li><span class="dropdown-item-text my-classes-empty">Loading your classes...</span></li>
                             </ul>
                         </li>
                     </ul>
                     <div class="profile-container">
-                        <i class="bi bi-bell"></i>
-                        <i class="bi bi-cart"></i>
                         <div class="profile-dropdown">
                             <img src="../../images/user_pic/profilepic.png" alt="profile" class="profile-img"
                                 id="profileBtn">
@@ -136,7 +126,9 @@
 
                 <section class="curriculum-section">
                     <h2>Course Curriculum</h2>
-                    <div class="curriculum-list" id="curriculumList"></div>
+                    <div class="curriculum-list" id="curriculumList">
+                        <p class="ui-status ui-status--loading">Loading curriculum...</p>
+                    </div>
                 </section>
             </div>
 
@@ -145,6 +137,7 @@
                     <h2 id="sidebarPrice">Free</h2>
                     <p>Community recipe course. No payment required.</p>
                     <button type="button" id="startLearningBtn">Start Learning</button>
+                    <p id="mealActionStatus" class="ui-status ui-status--loading">Loading meal details...</p>
                     <a href="/home">Back to Explore</a>
                 </div>
 
@@ -175,14 +168,15 @@
                 <p>© 2024 COOKING MARKETPLACE. ALL RIGHTS RESERVED.</p>
             </div>
             <div>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Support</a>
+                <a href="/html/privacy.html">Privacy</a>
+                <a href="/html/terms.html">Terms</a>
                 <a href="/html/users/contact.html">Contact</a>
             </div>
         </div>
     </footer>
 
+    <script src="../../js/users/ui_status.js"></script>
+    <script src="../../js/users/my_classes_shared.js"></script>
     <script src="../../js/users/user_homescreen.js"></script>
     <script src="../../js/users/meal_detail.js"></script>
 </body>

@@ -90,3 +90,23 @@ function renderSignups(signups) {
     </tr>
   `).join("");
 }
+
+function showDashboardEmptyStates() {
+  const statsGrid = document.getElementById("stats-grid");
+  const coursesGrid = document.getElementById("courses-grid");
+  const signupsBody = document.getElementById("signups-tbody");
+
+  if (statsGrid) {
+    statsGrid.innerHTML = `<p class="dashboard-empty">No analytics data available yet.</p>`;
+  }
+
+  if (coursesGrid) {
+    coursesGrid.innerHTML = `<p class="dashboard-empty">No courses to manage yet. Create your first course to see it here.</p>`;
+  }
+
+  if (signupsBody) {
+    signupsBody.innerHTML = `<tr><td colspan="5">No recent signups to display.</td></tr>`;
+  }
+}
+
+showDashboardEmptyStates();

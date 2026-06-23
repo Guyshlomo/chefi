@@ -294,6 +294,11 @@ body {
     border: 1px solid #D6D3D1;
 }
 
+.buy-card .ui-status {
+    margin-top: 14px;
+    width: 100%;
+}
+
 .buy-card.is-free h2,
 .meal-detail-page .course-hero-meta strong {
     color: #A93100;

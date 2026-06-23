@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../style/ui_status.css">
     <link rel="stylesheet" href="../../style/user_navbar.css">
     <link rel="stylesheet" href="../../style/allcourses.css">
     <link rel="stylesheet" href="../../style/user_footer.css">
@@ -28,15 +29,12 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary wrapper">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Chefi</a>
+                <a class="navbar-brand" href="/home">Chefi</a>
                 <form class="d-flex search-form mobile-navbar-search" role="search">
                     <i class="bi bi-search search-icon"></i>
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
                 </form>
                 <div class="navbar-actions">
-                    <button class="notification-btn" type="button" aria-label="Notifications">
-                        <i class="bi bi-bell"></i>
-                    </button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -49,39 +47,31 @@
                             <img src="../../images/user_pic/profilepic.png" alt="profile" class="mobile-profile-img">
                             My Profile
                         </a>
-                        <a class="mobile-menu-link mobile-cart-link" href="#">Cart</a>
                     </div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home">Explore</a>
+                            <a class="nav-link" href="/home">Explore</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./AllCourses.html">All Courses</a>
+                            <a class="nav-link active" aria-current="page" href="/all-courses">All Courses</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 My Classes
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">hey</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <ul class="dropdown-menu my-classes-menu" id="myClassesMenu">
+                                <li><span class="dropdown-item-text my-classes-empty">Loading your classes...</span></li>
                             </ul>
                         </li>
                     </ul>
                     <div class="profile-container">
-                        <i class="bi bi-bell"></i>
-                        <i class="bi bi-cart"></i>
                         <div class="profile-dropdown">
                             <img src="../../images/user_pic/profilepic.png" alt="profile" class="profile-img"
                                 id="profileBtn">
                             <div class="profile-menu" id="profileMenu">
-                                <a href="../../html/users/user_settings.html">Settings</a>
-                                <a href="../../html/users/user_logout.html">Logout</a>
+                                <a href="/settings">Settings</a>
+                                <a href="/logout">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -115,7 +105,9 @@
             <button id="searchBtn">Search</button>
         </section>
 
-        <section id="coursesGrid" class="courses-grid"></section>
+        <section id="coursesGrid" class="courses-grid">
+            <p class="ui-status ui-status--loading">Loading courses...</p>
+        </section>
     </main>
     <footer>
         <div class="footer-content wrapper">
@@ -123,17 +115,16 @@
                 <p>© 2024 COOKING MARKETPLACE. ALL RIGHTS RESERVED.</p>
             </div>
             <div>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Support</a>
+                <a href="/html/privacy.html">Privacy</a>
+                <a href="/html/terms.html">Terms</a>
                 <a href="/html/users/contact.html">Contact</a>
             </div>
         </div>
     </footer>
+    <script src="../../js/users/ui_status.js"></script>
+    <script src="../../js/users/my_classes_shared.js"></script>
     <script src="../../js/users/user_homescreen.js"></script>
     <script src="../../js/users/allcourses.js"></script>
-
-
 </body>
 
 </html>

@@ -6,6 +6,7 @@ const courseImage = document.getElementById("courseImage");
 const courseDescription = document.getElementById("courseDescription");
 const courseDuration = document.getElementById("courseDuration");
 const courseCategory = document.getElementById("courseCategory");
+const courseLevel = document.getElementById("courseLevel");
 const curriculumList = document.getElementById("curriculumList");
 const previewPlayBtn = document.getElementById("previewPlayBtn");
 const previewDuration = document.getElementById("previewDuration");
@@ -17,6 +18,7 @@ const mealVideoFrame = document.getElementById("mealVideoFrame");
 
 const fallbackImage = "../../images/user_pic/hero-section.png";
 let currentYoutubeUrl = "";
+let currentMeal = null;
 
 function escapeHtml(value) {
     return String(value)
@@ -142,6 +144,8 @@ function renderCurriculum(meal) {
 }
 
 function renderMeal(meal) {
+    currentMeal = meal;
+
     document.title = `Chefi - ${meal.strMeal}`;
 
     setText(courseTitle, meal.strMeal);
@@ -151,10 +155,12 @@ function renderMeal(meal) {
     setText(courseDescription, meal.strInstructions);
     setText(courseDuration, estimateDuration(meal));
     setText(courseCategory, meal.strCategory);
+    setText(courseLevel, "Beginner");
     setText(previewDuration, estimateDuration(meal));
 
     courseImage.src = meal.strMealThumb || fallbackImage;
     courseImage.alt = meal.strMeal;
+
     courseImage.addEventListener("error", () => {
         courseImage.src = fallbackImage;
     });
@@ -167,6 +173,7 @@ function renderMeal(meal) {
     }
 
     renderCurriculum(meal);
+    MyClassesShared.recordCourseView(String(meal.idMeal));
 }
 
 function renderMissingMeal() {
@@ -179,6 +186,10 @@ function renderMissingMeal() {
 
     if (previewPlayBtn) {
         previewPlayBtn.disabled = true;
+    }
+
+    if (startLearningBtn) {
+        startLearningBtn.disabled = true;
     }
 }
 
@@ -202,36 +213,79 @@ function closeVideoModal() {
     document.body.style.overflow = "";
 }
 
+function showMealActionStatus(type, message) {
+    const status = document.getElementById("mealActionStatus");
+
+    if (!status) {
+        return;
+    }
+
+    status.className = `ui-status ui-status--${type}`;
+    status.textContent = message;
+}
+
+function showCourseAddedSuccess() {
+    startLearningBtn.textContent = "Added to My Courses";
+    startLearningBtn.classList.add("course-added-success");
+    startLearningBtn.disabled = true;
+    showMealActionStatus("success", "Course added to your library successfully.");
+}
+
+async function addCourseToMyCourses() {
+    if (!currentMeal || !startLearningBtn) {
+        return;
+    }
+
+    ChefiUI.setButtonLoading(startLearningBtn, true, "Adding...", "Start Learning");
+    showMealActionStatus("loading", "Adding course to your library...");
+
+    const result = await ChefiUI.fetchJson("/api/user-courses/my-courses", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            courseId: currentMeal.idMeal,
+            title: currentMeal.strMeal,
+            chef: `${currentMeal.strArea || "Global"} cuisine`,
+            image: currentMeal.strMealThumb || fallbackImage,
+            category: currentMeal.strCategory,
+            duration: estimateDuration(currentMeal),
+            level: "Beginner"
+        })
+    });
+
+    if (!result.ok) {
+        ChefiUI.setButtonLoading(startLearningBtn, false, "Adding...", "Start Learning");
+        showMealActionStatus("error", result.error);
+        return;
+    }
+
+    showCourseAddedSuccess();
+}
+
 async function loadMeal() {
     const mealId = getMealId();
 
     if (!mealId) {
         renderMissingMeal();
+        showMealActionStatus("error", "Meal ID is missing.");
         return;
     }
 
-    try {
-        const response = await fetch(`/api/recipe/${mealId}`, {
-            credentials: "include"
-        });
+    setText(courseTitle, "Loading meal...");
+    showMealActionStatus("loading", "Loading meal details...");
 
-        if (!response.ok) {
-            renderMissingMeal();
-            return;
-        }
+    const result = await ChefiUI.fetchJson(`/api/recipes/recipe/${mealId}`);
 
-        const meal = await response.json();
-
-        if (!meal) {
-            renderMissingMeal();
-            return;
-        }
-
-        renderMeal(meal);
-    } catch (error) {
-        console.error("Error loading meal detail:", error);
+    if (!result.ok || !result.data) {
         renderMissingMeal();
+        showMealActionStatus("error", result.error || "Meal not found.");
+        return;
     }
+
+    renderMeal(result.data);
+    showMealActionStatus("empty", "This is a free course. Press Start Learning to save it to your library.");
 }
 
 if (previewPlayBtn) {
@@ -239,7 +293,7 @@ if (previewPlayBtn) {
 }
 
 if (startLearningBtn) {
-    startLearningBtn.addEventListener("click", openVideoModal);
+    startLearningBtn.addEventListener("click", addCourseToMyCourses);
 }
 
 if (mealVideoBackdrop) {

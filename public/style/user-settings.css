@@ -165,6 +165,12 @@ body {
     text-align: center;
 }
 
+#message.loading {
+    color: #57534E;
+    background: #F6F3F1;
+    border: 1px solid #eaded8;
+}
+
 #message.success {
     color: #1f7a3d;
 }

@@ -27,7 +27,9 @@ async function setLoggedInUsername() {
       usernameText.textContent = user.username;
     }
   } catch (error) {
-    console.error("Could not load logged-in user:", error);
+    if (usernameText) {
+      usernameText.textContent = "chef";
+    }
   }
 }
 
