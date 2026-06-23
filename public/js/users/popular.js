@@ -5,54 +5,42 @@ async function loadPopularCourses() {
         return;
     }
 
-    ChefiUI.setStatus(popularContainer, "loading", "Loading popular courses...");
+    try {
+        const response = await fetch("/api/home-content/popular");
+        const popularCourses = await response.json();
 
-    const result = await ChefiUI.fetchJson("/api/popular");
+        if (!Array.isArray(popularCourses) || popularCourses.length === 0) {
+            popularContainer.innerHTML = `<p>No popular courses to show yet.</p>`;
+            return;
+        }
 
-    if (!result.ok) {
-        ChefiUI.setStatus(popularContainer, "error", result.error);
-        return;
-    }
-
-    if (!Array.isArray(result.data) || result.data.length === 0) {
-        ChefiUI.setStatus(popularContainer, "empty", "No popular courses to show yet.");
-        return;
-    }
-
-    popularContainer.innerHTML = result.data.map((course) => {
-        const searchValue = encodeURIComponent(course.title);
-
-        return `
-            <article class="popular-card" tabindex="0" role="link" aria-label="Browse ${ChefiUI.escapeHtml(course.title)}">
-                <img src="${ChefiUI.escapeHtml(course.image)}" alt="${ChefiUI.escapeHtml(course.title)}">
-                <div class="popular-card-content">
-                    ${course.badge ? `<span class="course-badge">${ChefiUI.escapeHtml(course.badge)}</span>` : ""}
-                    <h3>${ChefiUI.escapeHtml(course.title)}</h3>
-                    <p>${ChefiUI.escapeHtml(course.chef)}</p>
-                    <div class="rating">
-                        <span>${ChefiUI.escapeHtml(course.rating)}</span>
-                        <small>(${ChefiUI.escapeHtml(course.reviews)})</small>
+        popularContainer.innerHTML = popularCourses.map((course) => {
+            return `
+                <article class="popular-card">
+                    <img src="${course.image}" alt="${course.title}">
+                    <div class="popular-card-content">
+                        ${course.badge ? `<span class="course-badge">${course.badge}</span>` : ""}
+                        <h3>${course.title}</h3>
+                        <p>${course.chef}</p>
+                        <div class="rating">
+                            <span>${course.rating}</span>
+                            <small>(${course.reviews})</small>
+                        </div>
                     </div>
-                </div>
-            </article>
-        `;
-    }).join("");
+                </article>
+            `;
+        }).join("");
 
-    popularContainer.querySelectorAll(".popular-card").forEach((card, index) => {
-        const course = result.data[index];
-        const targetUrl = `/all-courses?search=${encodeURIComponent(course.title)}`;
+        popularContainer.querySelectorAll(".popular-card").forEach((card, index) => {
+            const course = popularCourses[index];
 
-        card.addEventListener("click", () => {
-            window.location.href = targetUrl;
+            card.addEventListener("click", () => {
+                window.location.href = `/all-courses?search=${encodeURIComponent(course.title)}`;
+            });
         });
-
-        card.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                window.location.href = targetUrl;
-            }
-        });
-    });
+    } catch (error) {
+        console.error("Error loading popular courses:", error);
+    }
 }
 
 loadPopularCourses();

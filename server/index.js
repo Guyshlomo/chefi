@@ -10,6 +10,8 @@ const { requireAuth, requireRole } = require("./middlewares/authMiddleware");
 const courseRoutes = require("./routes/courseRoutes");
 const recipeRoutes = require("./routes/recipeRoutes");
 const userCourseRoutes = require("./routes/userCourseRoutes");
+const homeContentRoutes = require("./routes/homeContentRoutes");
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -31,6 +33,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/user-courses", userCourseRoutes);
+app.use("/api/home-content", homeContentRoutes);
+
 app.use(express.static(path.join(__dirname, "../public")));
 
 // Pages
