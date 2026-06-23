@@ -8,19 +8,19 @@ function renderLeaderContent(leader) {
 
     leaderContent.innerHTML = `
         <div class="leader-card">
-            <img src="${ChefiUI.escapeHtml(leader.image)}" alt="${ChefiUI.escapeHtml(leader.title)}">
+            <img src="${leader.image}" alt="${leader.title}">
             <div class="leader-info">
-                <span class="leader-badge">${ChefiUI.escapeHtml(leader.badge)}</span>
-                <h3>${ChefiUI.escapeHtml(leader.title)}</h3>
-                <p>${ChefiUI.escapeHtml(leader.description)}</p>
+                <span class="leader-badge">${leader.badge}</span>
+                <h3>${leader.title}</h3>
+                <p>${leader.description}</p>
                 <div class="leader-meta">
                     <div>
                         <p>DURATION</p>
-                        <strong>${ChefiUI.escapeHtml(leader.duration)}</strong>
+                        <strong>${leader.duration}</strong>
                     </div>
                     <div>
                         <p>LEVEL</p>
-                        <strong>${ChefiUI.escapeHtml(leader.level)}</strong>
+                        <strong>${leader.level}</strong>
                     </div>
                     <a href="/all-courses?search=${encodeURIComponent(leader.title)}" class="leader-a">Browse Course</a>
                 </div>
@@ -30,8 +30,8 @@ function renderLeaderContent(leader) {
 }
 
 function activateLeaderItem(item, leaders) {
-    const leaderId = Number(item.dataset.id);
-    const selectedLeader = leaders.find((leader) => leader.id === leaderId);
+    const leaderId = item.dataset.id;
+    const selectedLeader = leaders.find((leader) => leader._id === leaderId);
 
     document.querySelectorAll(".list_category").forEach((listItem) => {
         listItem.classList.remove("active");
@@ -46,43 +46,33 @@ async function loadLeaders() {
         return;
     }
 
-    ChefiUI.setStatus(leaderList, "loading", "Loading category leaders...");
-    leaderContent.innerHTML = ChefiUI.statusMarkup("loading", "Loading leader details...");
+    try {
+        const response = await fetch("/api/home-content/leaders");
+        const leaders = await response.json();
 
-    const result = await ChefiUI.fetchJson("/api/leaders");
+        if (!Array.isArray(leaders) || leaders.length === 0) {
+            leaderList.innerHTML = `<p>No category leaders available.</p>`;
+            leaderContent.innerHTML = `<p>No leader content to display.</p>`;
+            return;
+        }
 
-    if (!result.ok) {
-        ChefiUI.setStatus(leaderList, "error", result.error);
-        ChefiUI.setStatus(leaderContent, "error", result.error);
-        return;
-    }
+        leaderList.innerHTML = leaders.map((leader, index) => `
+            <li class="list_category ${index === 0 ? "active" : ""}" data-id="${leader._id}">
+                <span>${leader.category}</span>
+                <i class="bi bi-chevron-right"></i>
+            </li>
+        `).join("");
 
-    if (!Array.isArray(result.data) || result.data.length === 0) {
-        ChefiUI.setStatus(leaderList, "empty", "No category leaders available.");
-        ChefiUI.setStatus(leaderContent, "empty", "No leader content to display.");
-        return;
-    }
+        renderLeaderContent(leaders[0]);
+        leaderContent.classList.add("show");
 
-    leaderList.innerHTML = result.data.map((leader, index) => `
-        <li class="list_category ${index === 0 ? "active" : ""}" data-id="${leader.id}" tabindex="0" role="button">
-            <span>${ChefiUI.escapeHtml(leader.category)}</span>
-            <i class="bi bi-chevron-right"></i>
-        </li>
-    `).join("");
-
-    renderLeaderContent(result.data[0]);
-    leaderContent.classList.add("show");
-
-    leaderList.querySelectorAll(".list_category").forEach((item) => {
-        item.addEventListener("mouseenter", () => activateLeaderItem(item, result.data));
-        item.addEventListener("click", () => activateLeaderItem(item, result.data));
-        item.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                activateLeaderItem(item, result.data);
-            }
+        leaderList.querySelectorAll(".list_category").forEach((item) => {
+            item.addEventListener("mouseenter", () => activateLeaderItem(item, leaders));
+            item.addEventListener("click", () => activateLeaderItem(item, leaders));
         });
-    });
+    } catch (error) {
+        console.error("Error loading leaders:", error);
+    }
 }
 
 loadLeaders();

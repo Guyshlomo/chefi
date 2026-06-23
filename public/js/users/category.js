@@ -5,30 +5,24 @@ async function loadCategories() {
         return;
     }
 
-    ChefiUI.setStatus(categoryContainer, "loading", "Loading categories...");
+    try {
+        const response = await fetch("/api/home-content/categories");
+        const categories = await response.json();
 
-    const result = await ChefiUI.fetchJson("/api/categories");
+        categoryContainer.innerHTML = categories.map(category => {
+            const searchValue = encodeURIComponent(category.name);
 
-    if (!result.ok) {
-        ChefiUI.setStatus(categoryContainer, "error", result.error);
-        return;
+            return `
+                <a href="/all-courses?search=${searchValue}">
+                    <i class="${category.icon}"></i>
+                    <span>${category.name}</span>
+                </a>
+            `;
+        }).join("");
+    } catch (error) {
+        console.error("Error loading categories:", error);
+        categoryContainer.innerHTML = `<p>Could not load categories</p>`;
     }
-
-    if (!Array.isArray(result.data) || result.data.length === 0) {
-        ChefiUI.setStatus(categoryContainer, "empty", "No categories available right now.");
-        return;
-    }
-
-    categoryContainer.innerHTML = result.data.map((category) => {
-        const searchValue = encodeURIComponent(category.name);
-
-        return `
-            <a href="/all-courses?search=${searchValue}">
-                <i class="${ChefiUI.escapeHtml(category.icon)}"></i>
-                <span>${ChefiUI.escapeHtml(category.name)}</span>
-            </a>
-        `;
-    }).join("");
 }
 
 loadCategories();
