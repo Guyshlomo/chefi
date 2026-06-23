@@ -1,5 +1,6 @@
 const contactForm = document.getElementById("contactForm");
 const submitBtn = contactForm.querySelector(".submit-btn");
+const formStatus = document.getElementById("formStatus");
 
 contactForm.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -13,14 +14,12 @@ contactForm.addEventListener("submit", async function (event) {
     const emailError = document.getElementById("emailError");
     const subjectError = document.getElementById("subjectError");
     const messageError = document.getElementById("messageError");
-    const formStatus = document.getElementById("formStatus");
 
     nameError.textContent = "";
     emailError.textContent = "";
     subjectError.textContent = "";
     messageError.textContent = "";
-    formStatus.textContent = "";
-    formStatus.className = "form-status";
+    ChefiUI.clearElementStatus(formStatus);
 
     let isValid = true;
 
@@ -51,14 +50,12 @@ contactForm.addEventListener("submit", async function (event) {
     }
 
     if (!isValid) {
-        formStatus.textContent = "Please fix the errors and try again.";
-        formStatus.classList.add("error");
+        ChefiUI.setElementStatus(formStatus, "error", "Please fix the errors and try again.");
         return;
     }
 
     ChefiUI.setButtonLoading(submitBtn, true, "Sending...", "Send Message");
-    formStatus.textContent = "Sending your message...";
-    formStatus.className = "form-status loading";
+    ChefiUI.setElementStatus(formStatus, "loading", "Sending your message...");
 
     const result = await ChefiUI.fetchJson("/contact", {
         method: "POST",
@@ -76,14 +73,12 @@ contactForm.addEventListener("submit", async function (event) {
     ChefiUI.setButtonLoading(submitBtn, false, "Sending...", "Send Message");
 
     if (!result.ok) {
-        formStatus.textContent = result.error;
-        formStatus.className = "form-status error";
+        ChefiUI.setElementStatus(formStatus, "error", result.error);
         return;
     }
 
     contactForm.reset();
-    formStatus.textContent = result.data?.message || "Thank you for your message!";
-    formStatus.className = "form-status success";
+    ChefiUI.setElementStatus(formStatus, "success", result.data?.message || "Thank you for your message!");
 });
 
 function isValidEmail(email) {

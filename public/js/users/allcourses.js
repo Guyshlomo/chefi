@@ -5,6 +5,22 @@ const levelFilter = document.getElementById("levelFilter");
 const searchBtn = document.getElementById("searchBtn");
 const mobileSearchInput = document.querySelector(".mobile-navbar-search input");
 
+let enrolledCourseIds = new Set();
+
+async function loadEnrolledCourses() {
+    enrolledCourseIds = await MyClassesShared.getEnrolledCourseIds();
+}
+
+function getCourseDestination(course) {
+    const courseId = String(course.id || course._id);
+
+    if (enrolledCourseIds.has(courseId)) {
+        return MyClassesShared.getCourseViewUrl({ courseId });
+    }
+
+    return MyClassesShared.getCatalogDetailUrl(courseId);
+}
+
 function applyQueryParams() {
     const params = new URLSearchParams(window.location.search);
 
@@ -54,13 +70,13 @@ function showCourses(courses) {
         `;
 
         courseCard.addEventListener("click", () => {
-            window.location.href = `/course-detail?id=${course.id || course._id}`;
+            window.location.href = getCourseDestination(course);
         });
 
         courseCard.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
-                window.location.href = `/course-detail?id=${course.id || course._id}`;
+                window.location.href = getCourseDestination(course);
             }
         });
 
@@ -118,4 +134,4 @@ if (mobileSearchInput) {
 }
 
 applyQueryParams();
-getCourses();
+loadEnrolledCourses().then(getCourses);

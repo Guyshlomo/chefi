@@ -143,7 +143,7 @@ function renderCurriculum(meal) {
     `;
 }
 
-function renderMeal(meal) {
+async function renderMeal(meal) {
     currentMeal = meal;
 
     document.title = `Chefi - ${meal.strMeal}`;
@@ -169,11 +169,36 @@ function renderMeal(meal) {
 
     if (!currentYoutubeUrl && previewPlayBtn) {
         previewPlayBtn.disabled = true;
-        previewPlayBtn.style.opacity = "0.55";
+        previewPlayBtn.classList.add("is-unavailable");
     }
 
     renderCurriculum(meal);
-    MyClassesShared.recordCourseView(String(meal.idMeal));
+    await applyMealEnrollmentState(meal);
+}
+
+async function applyMealEnrollmentState(meal) {
+    if (!startLearningBtn) {
+        return;
+    }
+
+    const isEnrolled = await MyClassesShared.isCourseEnrolled(String(meal.idMeal));
+
+    if (!isEnrolled) {
+        startLearningBtn.disabled = false;
+        startLearningBtn.textContent = "Start Learning";
+        startLearningBtn.classList.remove("course-added-success");
+        showMealActionStatus("empty", "This is a free course. Press Start Learning to save it to your library.");
+        return;
+    }
+
+    startLearningBtn.disabled = false;
+    startLearningBtn.textContent = "Continue Learning";
+    startLearningBtn.classList.add("course-added-success");
+    showMealActionStatus("success", "This course is in your library. Continue where you left off.");
+}
+
+function goToMealCourseView(mealId) {
+    window.location.href = MyClassesShared.getCourseViewUrl({ courseId: mealId });
 }
 
 function renderMissingMeal() {
@@ -200,7 +225,7 @@ function openVideoModal() {
 
     mealVideoFrame.innerHTML = `<iframe src="${currentYoutubeUrl}" title="Recipe preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     mealVideoModal.hidden = false;
-    document.body.style.overflow = "hidden";
+    ChefiUI.lockBodyScroll(true);
 }
 
 function closeVideoModal() {
@@ -210,18 +235,11 @@ function closeVideoModal() {
 
     mealVideoModal.hidden = true;
     mealVideoFrame.innerHTML = "";
-    document.body.style.overflow = "";
+    ChefiUI.lockBodyScroll(false);
 }
 
 function showMealActionStatus(type, message) {
-    const status = document.getElementById("mealActionStatus");
-
-    if (!status) {
-        return;
-    }
-
-    status.className = `ui-status ui-status--${type}`;
-    status.textContent = message;
+    ChefiUI.setElementStatus(document.getElementById("mealActionStatus"), type, message);
 }
 
 function showCourseAddedSuccess() {
@@ -251,7 +269,8 @@ async function addCourseToMyCourses() {
             image: currentMeal.strMealThumb || fallbackImage,
             category: currentMeal.strCategory,
             duration: estimateDuration(currentMeal),
-            level: "Beginner"
+            level: "Beginner",
+            courseType: "meal"
         })
     });
 
@@ -261,7 +280,9 @@ async function addCourseToMyCourses() {
         return;
     }
 
-    showCourseAddedSuccess();
+    MyClassesShared.enrolledCourseIds = null;
+    ChefiUI.showToast("Course added to your library.", "success");
+    window.location.href = MyClassesShared.getCourseViewUrl({ courseId: currentMeal.idMeal });
 }
 
 async function loadMeal() {
@@ -284,8 +305,7 @@ async function loadMeal() {
         return;
     }
 
-    renderMeal(result.data);
-    showMealActionStatus("empty", "This is a free course. Press Start Learning to save it to your library.");
+    await renderMeal(result.data);
 }
 
 if (previewPlayBtn) {
@@ -293,7 +313,20 @@ if (previewPlayBtn) {
 }
 
 if (startLearningBtn) {
-    startLearningBtn.addEventListener("click", addCourseToMyCourses);
+    startLearningBtn.addEventListener("click", async () => {
+        if (!currentMeal) {
+            return;
+        }
+
+        const isEnrolled = await MyClassesShared.isCourseEnrolled(String(currentMeal.idMeal));
+
+        if (isEnrolled) {
+            goToMealCourseView(currentMeal.idMeal);
+            return;
+        }
+
+        addCourseToMyCourses();
+    });
 }
 
 if (mealVideoBackdrop) {

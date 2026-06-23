@@ -71,11 +71,7 @@ function renderSignups(signups) {
 
       <td>
         <div class="student-cell">
-          <!--
-            style inline = הצבע מגיע מה-JSON של כל סטודנט.
-            לא יכולנו לעשות זאת ב-CSS כי הצבע משתנה לכל אחד.
-          -->
-          <div class="student-avatar" style="background-color: ${person.color}">
+          <div class="student-avatar" data-avatar-color="${person.color}">
             ${person.initials}
           </div>
           <span>${person.name}</span>
@@ -89,6 +85,10 @@ function renderSignups(signups) {
 
     </tr>
   `).join("");
+
+  tbody.querySelectorAll(".student-avatar[data-avatar-color]").forEach((avatar) => {
+    avatar.style.setProperty("--avatar-color", avatar.dataset.avatarColor);
+  });
 }
 
 function showDashboardEmptyStates() {

@@ -169,6 +169,10 @@ a {
     margin-bottom: 24px;
 }
 
+.hero-accent {
+    color: #A93100;
+}
+
 .hero-section-content>p {
     color: #474747;
     font-family: "Inter", sans-serif;

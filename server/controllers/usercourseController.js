@@ -19,6 +19,7 @@ async function addCourseToUser(req, res) {
                 category: courseData.category,
                 duration: courseData.duration,
                 level: courseData.level,
+                courseType: courseData.courseType || "catalog",
                 lastViewedAt: new Date()
             },
             {
@@ -51,6 +52,62 @@ async function getMyCourses(req, res) {
     }
 }
 
+async function getMyCourse(req, res) {
+    try {
+        const userId = req.user.id;
+        const { courseId } = req.params;
+
+        const course = await UserCourse.findOne({ userId: userId, courseId: courseId });
+
+        if (!course) {
+            return res.status(404).json({ message: "Course not found in your library" });
+        }
+
+        res.status(200).json(course);
+    } catch (error) {
+        console.error("Get my course error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+async function updateCourseProgress(req, res) {
+    try {
+        const userId = req.user.id;
+        const { courseId } = req.params;
+        const { progress, currentLesson } = req.body;
+
+        const update = {
+            lastViewedAt: new Date()
+        };
+
+        if (typeof progress === "number") {
+            update.progress = Math.min(100, Math.max(0, progress));
+        }
+
+        if (typeof currentLesson === "number") {
+            update.currentLesson = Math.max(0, currentLesson);
+        }
+
+        const course = await UserCourse.findOneAndUpdate(
+            { userId: userId, courseId: courseId },
+            update,
+            { new: true }
+        );
+
+        if (!course) {
+            return res.status(404).json({ message: "Course not found in your library" });
+        }
+
+        res.status(200).json({
+            message: "Progress updated",
+            course: course
+        });
+    } catch (error) {
+        console.error("Update course progress error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 async function recordCourseView(req, res) {
     try {
         const userId = req.user.id;
@@ -79,5 +136,7 @@ async function recordCourseView(req, res) {
 module.exports = {
     addCourseToUser,
     getMyCourses,
+    getMyCourse,
+    updateCourseProgress,
     recordCourseView
 };

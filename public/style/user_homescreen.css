@@ -245,6 +245,7 @@ a {
 
 .progress-bar {
   background-color: #A93100;
+  width: var(--progress-width, 0%);
 }
 
 .RecommendedforYou {
@@ -480,7 +481,7 @@ a {
 .recipe-card-content p {
   font-size: 13px;
   color: #474747;
-  margin-bottom: 0;
+  margin-bottom: 8px;
 }
 
 .recipe-card-content a {
@@ -490,12 +491,12 @@ a {
   font-weight: bold;
 }
 
-.recipe-open-btn {
+.recipe-grid a.recipe-open-btn {
   display: inline-block;
   align-self: flex-start;
   margin-top: auto;
   padding: 10px 18px;
-  color: #ffffff !important;
+  color: #ffffff;
   background-color: #A93100;
   border-radius: 10px;
   font-size: 13px;
@@ -504,7 +505,7 @@ a {
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.recipe-open-btn:hover {
+.recipe-grid a.recipe-open-btn:hover {
   background-color: #8f2a00;
   transform: translateY(-1px);
 }
@@ -886,8 +887,8 @@ a {
     margin-bottom: 56px;
   }
 
-  .continue-cards>.card {
-    max-width: none !important;
+  .continue-cards > .continue-course-card {
+    max-width: none;
   }
 
   .continue-cards>.card:hover,
