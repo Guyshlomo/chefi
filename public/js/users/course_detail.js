@@ -23,7 +23,9 @@ function setText(element, value) {
 }
 
 function showActionStatus(type, message) {
-    ChefiUI.setElementStatus(courseActionStatus, type, message);
+    if (courseActionStatus && window.ChefiUI) {
+        ChefiUI.setElementStatus(courseActionStatus, type, message);
+    }
 }
 
 function getCourseId() {
@@ -38,12 +40,12 @@ function renderCurriculum(course) {
 
     const steps = String(course.description || "")
         .split(/\.\s+/)
-        .map((step) => step.trim())
+        .map(step => step.trim())
         .filter(Boolean)
         .slice(0, 4);
 
     if (steps.length === 0) {
-        curriculumList.innerHTML = ChefiUI.statusMarkup("empty", "Course curriculum will be available soon.");
+        curriculumList.innerHTML = `<p class="ui-status ui-status--empty">Course curriculum will be available soon.</p>`;
         return;
     }
 
@@ -52,7 +54,7 @@ function renderCurriculum(course) {
             <span>${String(index + 1).padStart(2, "0")}</span>
             <div>
                 <strong>Lesson ${index + 1}</strong>
-                <p>${ChefiUI.escapeHtml(step)}.</p>
+                <p>${step}.</p>
             </div>
             <small>${8 + index * 4}m</small>
         </div>
@@ -61,8 +63,8 @@ function renderCurriculum(course) {
     curriculumList.innerHTML = `
         <div class="module active">
             <div>
-                <strong>Module 1: ${ChefiUI.escapeHtml(course.title)}</strong>
-                <span>${steps.length} Lessons • ${ChefiUI.escapeHtml(course.duration)}</span>
+                <strong>Module 1: ${course.title}</strong>
+                <span>${steps.length} Lessons • ${course.duration}</span>
             </div>
         </div>
         ${lessons}
@@ -71,6 +73,7 @@ function renderCurriculum(course) {
 
 function renderCourse(course) {
     currentCourse = course;
+
     const price = `$${course.price}`;
 
     document.title = `Chefi - ${course.title}`;
@@ -87,12 +90,12 @@ function renderCourse(course) {
 
     courseImage.src = course.image || fallbackImage;
     courseImage.alt = course.title;
+
     courseImage.onerror = () => {
         courseImage.src = fallbackImage;
     };
 
     renderCurriculum(course);
-    await applyEnrollmentState(course);
 }
 
 async function applyEnrollmentState(course) {
@@ -122,10 +125,13 @@ function goToCourseView(courseId) {
 function renderMissingCourse(message) {
     setText(courseTitle, "Course not found");
     setText(courseDescription, message || "We could not find this course. Please go back to All Courses and choose another one.");
-    courseImage.src = fallbackImage;
+
+    if (courseImage) {
+        courseImage.src = fallbackImage;
+    }
 
     if (curriculumList) {
-        ChefiUI.setStatus(curriculumList, "empty", "No curriculum available.");
+        curriculumList.innerHTML = `<p class="ui-status ui-status--empty">No curriculum available.</p>`;
     }
 
     if (buyNowBtn) {
@@ -148,6 +154,7 @@ async function enrollInCourse() {
         headers: {
             "Content-Type": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify({
             courseId: String(currentCourse.id || currentCourse._id),
             title: currentCourse.title,
@@ -168,7 +175,10 @@ async function enrollInCourse() {
 
     MyClassesShared.enrolledCourseIds = null;
     ChefiUI.showToast("Course added to your library.", "success");
-    window.location.href = MyClassesShared.getCourseViewUrl({ courseId: currentCourse.id || currentCourse._id });
+
+    window.location.href = MyClassesShared.getCourseViewUrl({
+        courseId: currentCourse.id || currentCourse._id
+    });
 }
 
 async function loadCourse() {
@@ -194,7 +204,7 @@ async function loadCourse() {
         return;
     }
 
-    const course = result.data.find((item) => String(item.id || item._id) === String(courseId));
+    const course = result.data.find(item => String(item.id || item._id) === String(courseId));
 
     if (!course) {
         renderMissingCourse();
@@ -207,7 +217,11 @@ async function loadCourse() {
 
 if (buyNowBtn) {
     buyNowBtn.addEventListener("click", async () => {
-        const courseId = String(currentCourse?.id || currentCourse?._id || "");
+        if (!currentCourse) {
+            return;
+        }
+
+        const courseId = String(currentCourse.id || currentCourse._id);
         const isEnrolled = await MyClassesShared.isCourseEnrolled(courseId);
 
         if (isEnrolled) {
@@ -215,7 +229,7 @@ if (buyNowBtn) {
             return;
         }
 
-        enrollInCourse();
+        await enrollInCourse();
     });
 }
 

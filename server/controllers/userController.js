@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const Course = require("../models/Course");
 
 async function updateMe(req, res) {
     try {
@@ -78,7 +79,40 @@ async function deleteMe(req, res) {
     }
 }
 
+async function getRecommendedForUser(req, res) {
+    try {
+        const userId = req.user.id;
+
+        const myCourses = await UserCourse.find({ userId: userId });
+
+        const myCourseIds = myCourses.map(course => String(course.courseId));
+        const myCategories = myCourses.map(course => course.category);
+
+        let recommendedCourses = [];
+
+        if (myCategories.length > 0) {
+            recommendedCourses = await Course.find({
+                category: { $in: myCategories },
+                id: { $nin: myCourseIds }
+            }).limit(4);
+        }
+
+        if (recommendedCourses.length === 0) {
+            recommendedCourses = await Course.find({
+                id: { $nin: myCourseIds }
+            }).limit(4);
+        }
+
+        res.status(200).json(recommendedCourses);
+    } catch (error) {
+        console.error("Recommended courses error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+
 module.exports = {
     updateMe,
-    deleteMe
+    deleteMe,
+    getRecommendedForUser
 };

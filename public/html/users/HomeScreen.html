@@ -57,7 +57,8 @@
                                 My Classes
                             </a>
                             <ul class="dropdown-menu my-classes-menu" id="myClassesMenu">
-                                <li><span class="dropdown-item-text my-classes-empty">Loading your classes...</span></li>
+                                <li><span class="dropdown-item-text my-classes-empty">Loading your classes...</span>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -101,44 +102,11 @@
         <section class="RecommendedforYou">
             <div class="wrapper">
                 <h2>Recommended for You</h2>
-                <h6>Browse featured picks from our course catalog.</h6>
+                <h6>Personal picks based on your courses.</h6>
             </div>
-            <div class="recommnded-grid wrapper">
-                <div class="div1">
-                    <img src="../../images/user_pic/indianfood.png" alt="Indian Food">
-                    <div class="recommended-content">
-                        <h5>MasterClass</h5>
-                        <h2>The Spice Routes of India</h2>
-                        <p>Learn to toast, grind, and layer spices like a master chef
-                            from Mumbai.</p>
-                        <a class="icon-link icon-link-hover" href="/all-courses">
-                            Start Learning
-                            <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16" aria-hidden="true">
-                                <path
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <a class="div2 recommended-tile" href="/all-courses">
-                    <img src="../../images/user_pic/steak.png" alt="Steak">
-                    <div class="recommended-content">
-                        <h3>Steakhouse Secrets: The Reverse Sear</h3>
-                        <p>Chef Julian Rossi<span> • 1.5 Hours</span></p>
-                    </div>
-                </a>
-                <a class="div3 recommended-tile" href="/all-courses">
-                    <img src="../../images/user_pic/wine.png" alt="Wine">
-                    <div class="recommended-content">
-                        <h4>Wine Pairing 101</h4>
-                    </div>
-                </a>
-                <a class="div4 recommended-tile" href="/all-courses">
-                    <img src="../../images/user_pic/bread.png" alt="Bread">
-                    <div class="recommended-content">
-                        <h4>Advanced Sourdough</h4>
-                    </div>
-                </a>
+
+            <div class="recommnded-grid wrapper" id="recommendedGrid">
+                <p class="ui-status ui-status--loading">Loading recommended courses...</p>
             </div>
         </section>
         <section class="recipe-inspiration wrapper">
@@ -185,6 +153,7 @@
     <script src="../../js/users/ui_status.js"></script>
     <script src="../../js/users/my_classes_shared.js"></script>
     <script src="../../js/users/user_homescreen.js"></script>
+    <script src="../../js/users/recommended.js"></script>
     <script src="../../js/users/recipe_inspiration.js"></script>
     <script src="../../js/users/user_course.js"></script>
     <script src="../../js/users/category.js"></script>
