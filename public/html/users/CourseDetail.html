@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../style/user_navbar.css">
+    <link rel="stylesheet" href="../../style/course_detail.css">
+    <link rel="stylesheet" href="../../style/user_footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abel&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+    <title>Chefi - Course Detail</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary wrapper">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home">Chefi</a>
+                <form class="d-flex search-form mobile-navbar-search" role="search">
+                    <i class="bi bi-search search-icon"></i>
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+                </form>
+                <div class="navbar-actions">
+                    <button class="notification-btn" type="button" aria-label="Notifications">
+                        <i class="bi bi-bell"></i>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="mobile-menu-user">
+                        <a class="mobile-menu-link mobile-profile-link" href="/settings">
+                            <img src="../../images/user_pic/profilepic.png" alt="profile" class="mobile-profile-img">
+                            My Profile
+                        </a>
+                        <a class="mobile-menu-link mobile-cart-link" href="#">Cart</a>
+                    </div>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">Explore</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/all-courses">All Courses</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                My Classes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Saved Courses</a></li>
+                                <li><a class="dropdown-item" href="#">In Progress</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Certificates</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="profile-container">
+                        <i class="bi bi-bell"></i>
+                        <i class="bi bi-cart"></i>
+                        <div class="profile-dropdown">
+                            <img src="../../images/user_pic/profilepic.png" alt="profile" class="profile-img"
+                                id="profileBtn">
+                            <div class="profile-menu" id="profileMenu">
+                                <a href="../../html/users/user_settings.html">Settings</a>
+                                <a href="../../html/users/user_logout.html">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="mobile-menu-link mobile-logout-link" href="/logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="course-detail-page">
+        <section class="course-hero wrapper">
+            <div class="course-hero-copy">
+                <p class="eyebrow">Course Detail</p>
+                <h1 id="courseTitle">Loading course...</h1>
+                <div class="course-hero-meta">
+                    <span id="courseChef">Chef</span>
+                    <span><i class="fa-solid fa-star"></i> 4.9 reviews</span>
+                    <strong id="coursePrice">$0</strong>
+                </div>
+            </div>
+
+            <div class="course-preview">
+                <img id="courseImage" src="../../images/user_pic/hero-section.png" alt="Course preview">
+                <button class="preview-play" type="button" aria-label="Play trailer">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <div class="preview-caption">
+                    <strong>Preview Trailer</strong>
+                    <span>2:45 min</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="course-layout wrapper">
+            <div class="course-main-content">
+                <article class="detail-card about-card">
+                    <h2>About this course</h2>
+                    <p id="courseDescription"></p>
+                    <div class="course-facts">
+                        <div>
+                            <span>Duration</span>
+                            <strong id="courseDuration"></strong>
+                        </div>
+                        <div>
+                            <span>Skill Level</span>
+                            <strong id="courseLevel"></strong>
+                        </div>
+                        <div>
+                            <span>Category</span>
+                            <strong id="courseCategory"></strong>
+                        </div>
+                        <div>
+                            <span>Access</span>
+                            <strong>Lifetime</strong>
+                        </div>
+                    </div>
+                </article>
+
+                <section class="curriculum-section">
+                    <h2>Course Curriculum</h2>
+                    <div class="curriculum-list">
+                        <div class="module active">
+                            <div>
+                                <strong>Module 1: Foundations</strong>
+                                <span>4 Lessons • 58m</span>
+                            </div>
+                        </div>
+                        <div class="lesson">
+                            <span>01</span>
+                            <div>
+                                <strong>Introduction to the technique</strong>
+                                <p>The fundamentals and core principles.</p>
+                            </div>
+                            <small>12:04</small>
+                        </div>
+                        <div class="lesson locked">
+                            <span>02</span>
+                            <div>
+                                <strong>Flavor and texture control</strong>
+                                <p>Precision, timing, and professional workflow.</p>
+                            </div>
+                            <small><i class="fa-solid fa-lock"></i></small>
+                        </div>
+                        <div class="module">
+                            <div>
+                                <strong>Module 2: Advanced Practice</strong>
+                                <span>6 Lessons • 2h 15m</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="course-sidebar">
+                <div class="buy-card">
+                    <h2 id="sidebarPrice">$0</h2>
+                    <p>Limited time offer. Includes digital recipe book.</p>
+                    <button type="button">Buy Now</button>
+                    <a href="#">Gift this Course</a>
+                </div>
+
+                <div class="included-card">
+                    <h3>What's included</h3>
+                    <ul>
+                        <li>High-definition video lessons</li>
+                        <li>Downloadable recipe companion</li>
+                        <li>Direct Q&A with the chef</li>
+                        <li>Certificate of completion</li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content wrapper">
+            <div>
+                <p>© 2024 COOKING MARKETPLACE. ALL RIGHTS RESERVED.</p>
+            </div>
+            <div>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+                <a href="/html/users/contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/users/user_homescreen.js"></script>
+    <script src="../../js/users/course_detail.js"></script>
+</body>
+
+</html>

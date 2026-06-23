@@ -39,6 +39,9 @@ function showCourses(courses) {
     courses.forEach((course) => {
         const courseCard = document.createElement("article");
         courseCard.classList.add("course-card");
+        courseCard.tabIndex = 0;
+        courseCard.setAttribute("role", "link");
+        courseCard.setAttribute("aria-label", `Open ${course.title} course detail`);
 
         const imageUrl = course.image ? course.image.trim() : "";
 
@@ -60,6 +63,17 @@ function showCourses(courses) {
         `;
 
         coursesGrid.appendChild(courseCard);
+
+        courseCard.addEventListener("click", () => {
+            window.location.href = `/course-detail?id=${course.id || course._id}`;
+        });
+
+        courseCard.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                window.location.href = `/course-detail?id=${course.id || course._id}`;
+            }
+        });
     });
 }
 

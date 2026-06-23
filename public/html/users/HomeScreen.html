@@ -40,6 +40,13 @@
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="mobile-menu-user">
+                        <a class="mobile-menu-link mobile-profile-link" href="/settings">
+                            <img src="../../images/user_pic/profilepic.png" alt="profile" class="mobile-profile-img">
+                            My Profile
+                        </a>
+                        <a class="mobile-menu-link mobile-cart-link" href="#">Cart</a>
+                    </div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Explore</a>
@@ -74,10 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mobile-profile-links">
-                        <a href="#">Cart</a>
-                        <a href="#">My Profile</a>
-                    </div>
+                    <a class="mobile-menu-link mobile-logout-link" href="/logout">Logout</a>
                 </div>
             </div>
         </nav>
@@ -196,6 +200,15 @@
                 </div>
             </div>
         </section>
+        <section class="recipe-inspiration wrapper">
+            <div class="recipe-header">
+                <div>
+                    <h2>Meal's ideas</h2>
+                </div>
+                <button id="refreshRecipesBtn">Refresh</button>
+            </div>
+            <div class="recipe-grid" id="recipeGrid"></div>
+        </section>
         <section class="popular wrapper">
             <h2>Popular This Week</h2>
             <div class="popular-container" id="popular-card"></div>
@@ -222,6 +235,7 @@
         </div>
     </footer>
     <script src="../../js/users/user_homescreen.js"></script>
+    <script src="../../js/users/recipe_inspiration.js"></script>
     <script src="../../js/users/category.js"></script>
     <script src="../../js/users/popular.js"></script>
     <script src="../../js/users/leaders.js"></script>

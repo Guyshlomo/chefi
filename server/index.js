@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const { requireAuth, requireRole } = require("./middlewares/authMiddleware");
 const courseRoutes = require("./routes/courseRoutes");
+const recipeRoutes = require("./routes/recipeRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 app.use("/", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/courses", courseRoutes);
+app.use("/api", recipeRoutes);
 
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -43,6 +45,14 @@ app.get("/home", requireAuth, requireRole("student"), (req, res) => {
 
 app.get("/all-courses", requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/html/users/AllCourses.html"));
+});
+
+app.get("/course-detail", requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/users/CourseDetail.html"));
+});
+
+app.get("/meal-detail", requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/users/MealDetail.html"));
 });
 
 app.get("/dashboard", requireAuth, requireRole("chef"), (req, res) => {

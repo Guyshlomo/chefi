@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../../style/user_navbar.css">
-    <link rel="stylesheet" href="../../style/allcourses.css">
+    <link rel="stylesheet" href="../../style/course_detail.css">
     <link rel="stylesheet" href="../../style/user_footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -19,20 +19,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Abel&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/nimbus-sans-l" type="text/css" />
-
-    <title>Chefi - All Courses</title>
+    <title>Chefi - Meal Course</title>
 </head>
 
-<body>
+<body class="meal-detail-page">
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary wrapper">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Chefi</a>
-                <form class="d-flex search-form mobile-navbar-search" role="search">
-                    <i class="bi bi-search search-icon"></i>
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
-                </form>
+                <a class="navbar-brand" href="/home">Chefi</a>
                 <div class="navbar-actions">
                     <button class="notification-btn" type="button" aria-label="Notifications">
                         <i class="bi bi-bell"></i>
@@ -53,10 +47,10 @@
                     </div>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/Home">Explore</a>
+                            <a class="nav-link active" aria-current="page" href="/home">Explore</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./AllCourses.html">All Courses</a>
+                            <a class="nav-link" href="/all-courses">All Courses</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -64,12 +58,12 @@
                                 My Classes
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">hey</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Saved Courses</a></li>
+                                <li><a class="dropdown-item" href="#">In Progress</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Certificates</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -80,8 +74,8 @@
                             <img src="../../images/user_pic/profilepic.png" alt="profile" class="profile-img"
                                 id="profileBtn">
                             <div class="profile-menu" id="profileMenu">
-                                <a href="../../html/users/user_settings.html">Settings</a>
-                                <a href="../../html/users/user_logout.html">Logout</a>
+                                <a href="/settings">Settings</a>
+                                <a href="/logout">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -90,33 +84,91 @@
             </div>
         </nav>
     </header>
-    <main>
-        <h1>All Cooking Courses</h1>
 
-        <section class="filters">
-            <input type="text" id="searchInput" placeholder="Search courses...">
+    <main class="course-detail-page">
+        <section class="course-hero wrapper">
+            <div class="course-hero-copy">
+                <p class="eyebrow">Free Course</p>
+                <h1 id="courseTitle">Loading meal...</h1>
+                <div class="course-hero-meta">
+                    <span id="courseChef">Chef</span>
+                    <span><i class="fa-solid fa-star"></i> Community favorite</span>
+                    <strong id="coursePrice">Free</strong>
+                </div>
+            </div>
 
-            <select id="categoryFilter">
-                <option value="">All Categories</option>
-                <option value="italian">Italian</option>
-                <option value="baking">Baking</option>
-                <option value="asian">Asian</option>
-                <option value="desserts">Desserts</option>
-                <option value="healthy">Healthy</option>
-            </select>
-
-            <select id="levelFilter">
-                <option value="">All Levels</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-
-            <button id="searchBtn">Search</button>
+            <div class="course-preview">
+                <img id="courseImage" src="../../images/user_pic/hero-section.png" alt="Course preview">
+                <button class="preview-play" type="button" id="previewPlayBtn" aria-label="Play preview">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <div class="preview-caption">
+                    <strong>Preview Lesson</strong>
+                    <span id="previewDuration">Quick watch</span>
+                </div>
+            </div>
         </section>
 
-        <section id="coursesGrid" class="courses-grid"></section>
+        <section class="course-layout wrapper">
+            <div class="course-main-content">
+                <article class="detail-card about-card">
+                    <h2>About this course</h2>
+                    <p id="courseDescription"></p>
+                    <div class="course-facts">
+                        <div>
+                            <span>Duration</span>
+                            <strong id="courseDuration"></strong>
+                        </div>
+                        <div>
+                            <span>Skill Level</span>
+                            <strong id="courseLevel">Beginner</strong>
+                        </div>
+                        <div>
+                            <span>Category</span>
+                            <strong id="courseCategory"></strong>
+                        </div>
+                        <div>
+                            <span>Access</span>
+                            <strong>Free Forever</strong>
+                        </div>
+                    </div>
+                </article>
+
+                <section class="curriculum-section">
+                    <h2>Course Curriculum</h2>
+                    <div class="curriculum-list" id="curriculumList"></div>
+                </section>
+            </div>
+
+            <aside class="course-sidebar">
+                <div class="buy-card is-free">
+                    <h2 id="sidebarPrice">Free</h2>
+                    <p>Community recipe course. No payment required.</p>
+                    <button type="button" id="startLearningBtn">Start Learning</button>
+                    <a href="/home">Back to Explore</a>
+                </div>
+
+                <div class="included-card">
+                    <h3>What's included</h3>
+                    <ul>
+                        <li>Step-by-step video-style walkthrough</li>
+                        <li>Full ingredient breakdown</li>
+                        <li>Chef tips from TheMealDB community</li>
+                        <li>Save to your personal recipe library</li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
     </main>
+
+    <div class="meal-video-modal" id="mealVideoModal" hidden>
+        <div class="meal-video-backdrop" id="mealVideoBackdrop"></div>
+        <div class="meal-video-dialog" role="dialog" aria-modal="true" aria-label="Recipe preview video">
+            <button type="button" class="meal-video-close" id="mealVideoClose" aria-label="Close video">&times;</button>
+            <div class="meal-video-frame" id="mealVideoFrame"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content wrapper">
             <div>
@@ -130,10 +182,9 @@
             </div>
         </div>
     </footer>
+
     <script src="../../js/users/user_homescreen.js"></script>
-    <script src="../../js/users/allcourses.js"></script>
-
-
+    <script src="../../js/users/meal_detail.js"></script>
 </body>
 
 </html>
