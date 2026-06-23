@@ -6,17 +6,28 @@ const registerForm = document.querySelector(".form-box.register form");
 const loginSubmitBtn = loginForm?.querySelector('button[type="submit"]');
 const registerSubmitBtn = registerForm?.querySelector('button[type="submit"]');
 
-function showAuthMessage(formBox, message, type) {
+function ensureAuthStatus(formBox) {
     let status = formBox.querySelector(".auth-status");
 
     if (!status) {
         status = document.createElement("p");
-        status.className = "auth-status";
+        status.className = "auth-status ui-status";
+        status.hidden = true;
         formBox.appendChild(status);
     }
 
-    status.className = `auth-status ${type}`;
-    status.textContent = message;
+    return status;
+}
+
+function showAuthMessage(formBox, message, type) {
+    const status = ensureAuthStatus(formBox);
+
+    if (!type) {
+        ChefiUI.clearElementStatus(status);
+        return;
+    }
+
+    ChefiUI.setElementStatus(status, type, message);
 }
 
 registerBtn.addEventListener("click", () => {

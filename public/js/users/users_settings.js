@@ -8,8 +8,12 @@ function showMessage(text, type) {
         return;
     }
 
-    message.className = type;
-    message.textContent = text;
+    if (!type) {
+        ChefiUI.clearElementStatus(message);
+        return;
+    }
+
+    ChefiUI.setElementStatus(message, type, text);
 }
 
 async function loadCurrentUser() {
@@ -25,42 +29,38 @@ async function loadCurrentUser() {
     document.getElementById("username").value = result.data.username || "";
     document.getElementById("email").value = result.data.email || "";
     document.getElementById("password").value = "";
-    message.className = "";
-    message.textContent = "";
+    showMessage("", null);
 }
 
-function createDeleteBanner() {
-    const backdrop = document.createElement("div");
-    backdrop.className = "delete-confirm-backdrop";
-    backdrop.innerHTML = `
-        <div class="delete-confirm-banner" role="dialog" aria-modal="true" aria-labelledby="deleteConfirmTitle">
-            <div class="delete-confirm-icon">!</div>
-            <h2 id="deleteConfirmTitle">Delete your account?</h2>
-            <p>This action is permanent. Your profile, saved progress, and account details will be removed.</p>
-            <div class="delete-confirm-actions">
-                <button type="button" class="cancel-delete">Keep Account</button>
-                <button type="button" class="confirm-delete">Delete Account</button>
-            </div>
-        </div>
-    `;
+deleteBtn.addEventListener("click", async () => {
+    const confirmed = await ChefiUI.showConfirm({
+        title: "Delete your account?",
+        message: "This action is permanent. Your profile, saved progress, and account details will be removed.",
+        confirmLabel: "Delete Account",
+        cancelLabel: "Keep Account",
+        confirmVariant: "danger"
+    });
 
-    document.body.appendChild(backdrop);
-    return backdrop;
-}
+    if (!confirmed) {
+        return;
+    }
 
-const deleteBanner = createDeleteBanner();
-const cancelDeleteBtn = deleteBanner.querySelector(".cancel-delete");
-const confirmDeleteBtn = deleteBanner.querySelector(".confirm-delete");
+    ChefiUI.setButtonLoading(deleteBtn, true, "Deleting...", "Delete Account");
+    showMessage("Deleting your account...", "loading");
 
-function openDeleteBanner() {
-    deleteBanner.classList.add("is-visible");
-    confirmDeleteBtn.focus();
-}
+    const result = await ChefiUI.fetchJson("/api/users/me", {
+        method: "DELETE"
+    });
 
-function closeDeleteBanner() {
-    deleteBanner.classList.remove("is-visible");
-    deleteBtn.focus();
-}
+    if (!result.ok) {
+        showMessage(result.error, "error");
+        ChefiUI.setButtonLoading(deleteBtn, false, "Deleting...", "Delete Account");
+        return;
+    }
+
+    ChefiUI.showToast("Your account was deleted.", "success");
+    window.location.href = "/";
+});
 
 updateForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -93,32 +93,6 @@ updateForm.addEventListener("submit", async (event) => {
 
     showMessage(result.data?.message || "Account updated successfully.", "success");
     document.getElementById("password").value = "";
-});
-
-deleteBtn.addEventListener("click", openDeleteBanner);
-cancelDeleteBtn.addEventListener("click", closeDeleteBanner);
-
-deleteBanner.addEventListener("click", (event) => {
-    if (event.target === deleteBanner) {
-        closeDeleteBanner();
-    }
-});
-
-confirmDeleteBtn.addEventListener("click", async () => {
-    ChefiUI.setButtonLoading(confirmDeleteBtn, true, "Deleting...", "Delete Account");
-
-    const result = await ChefiUI.fetchJson("/api/users/me", {
-        method: "DELETE"
-    });
-
-    if (!result.ok) {
-        showMessage(result.error, "error");
-        ChefiUI.setButtonLoading(confirmDeleteBtn, false, "Deleting...", "Delete Account");
-        closeDeleteBanner();
-        return;
-    }
-
-    window.location.href = "/";
 });
 
 loadCurrentUser();

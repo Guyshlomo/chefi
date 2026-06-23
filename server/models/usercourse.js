@@ -23,6 +23,17 @@ const userCourseSchema = new mongoose.Schema({
     duration: String,
     level: String,
 
+    courseType: {
+        type: String,
+        enum: ["catalog", "meal"],
+        default: "catalog"
+    },
+
+    currentLesson: {
+        type: Number,
+        default: 0
+    },
+
     progress: {
         type: Number,
         default: 0

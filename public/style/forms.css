@@ -255,17 +255,6 @@ form {
 
 .auth-status {
   margin-top: 16px;
-  min-height: 20px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.auth-status.loading {
-  color: #57534E;
-}
-
-.auth-status.error {
-  color: #A93100;
 }
 
 @media screen and (max-width: 650px) {

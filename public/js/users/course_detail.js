@@ -23,12 +23,7 @@ function setText(element, value) {
 }
 
 function showActionStatus(type, message) {
-    if (!courseActionStatus) {
-        return;
-    }
-
-    courseActionStatus.className = `ui-status ui-status--${type}`;
-    courseActionStatus.textContent = message;
+    ChefiUI.setElementStatus(courseActionStatus, type, message);
 }
 
 function getCourseId() {
@@ -97,8 +92,31 @@ function renderCourse(course) {
     };
 
     renderCurriculum(course);
-    showActionStatus("empty", "Add this course to your library to start learning.");
-    MyClassesShared.recordCourseView(String(course.id || course._id));
+    await applyEnrollmentState(course);
+}
+
+async function applyEnrollmentState(course) {
+    if (!buyNowBtn) {
+        return;
+    }
+
+    const courseId = String(course.id || course._id);
+    const isEnrolled = await MyClassesShared.isCourseEnrolled(courseId);
+
+    if (!isEnrolled) {
+        buyNowBtn.disabled = false;
+        buyNowBtn.textContent = "Add to My Courses";
+        showActionStatus("empty", "Add this course to your library to start learning.");
+        return;
+    }
+
+    buyNowBtn.disabled = false;
+    buyNowBtn.textContent = "Continue Learning";
+    showActionStatus("success", "This course is in your library. Continue where you left off.");
+}
+
+function goToCourseView(courseId) {
+    window.location.href = MyClassesShared.getCourseViewUrl({ courseId });
 }
 
 function renderMissingCourse(message) {
@@ -137,7 +155,8 @@ async function enrollInCourse() {
             image: currentCourse.image,
             category: currentCourse.category,
             duration: currentCourse.duration,
-            level: currentCourse.level
+            level: currentCourse.level,
+            courseType: "catalog"
         })
     });
 
@@ -147,9 +166,9 @@ async function enrollInCourse() {
         return;
     }
 
-    buyNowBtn.disabled = true;
-    buyNowBtn.textContent = "Added to My Courses";
-    showActionStatus("success", result.data?.message || "Course added successfully.");
+    MyClassesShared.enrolledCourseIds = null;
+    ChefiUI.showToast("Course added to your library.", "success");
+    window.location.href = MyClassesShared.getCourseViewUrl({ courseId: currentCourse.id || currentCourse._id });
 }
 
 async function loadCourse() {
@@ -183,10 +202,21 @@ async function loadCourse() {
     }
 
     renderCourse(course);
+    await applyEnrollmentState(course);
 }
 
 if (buyNowBtn) {
-    buyNowBtn.addEventListener("click", enrollInCourse);
+    buyNowBtn.addEventListener("click", async () => {
+        const courseId = String(currentCourse?.id || currentCourse?._id || "");
+        const isEnrolled = await MyClassesShared.isCourseEnrolled(courseId);
+
+        if (isEnrolled) {
+            goToCourseView(courseId);
+            return;
+        }
+
+        enrollInCourse();
+    });
 }
 
 if (mobileSearchInput) {

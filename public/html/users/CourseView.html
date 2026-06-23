@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../style/ui_status.css">
+    <link rel="stylesheet" href="../../style/user_navbar.css">
+    <link rel="stylesheet" href="../../style/course_view.css">
+    <link rel="stylesheet" href="../../style/user_footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Chefi - Course View</title>
+</head>
+
+<body class="course-view-page">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary wrapper">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home">Chefi</a>
+                <div class="navbar-actions">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="mobile-menu-user">
+                        <a class="mobile-menu-link mobile-profile-link" href="/settings">
+                            <img src="../../images/user_pic/profilepic.png" alt="profile" class="mobile-profile-img">
+                            My Profile
+                        </a>
+                    </div>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">Explore</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/all-courses">All Courses</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                My Classes
+                            </a>
+                            <ul class="dropdown-menu my-classes-menu" id="myClassesMenu">
+                                <li><span class="dropdown-item-text my-classes-empty">Loading your classes...</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="profile-container">
+                        <div class="profile-dropdown">
+                            <img src="../../images/user_pic/profilepic.png" alt="profile" class="profile-img"
+                                id="profileBtn">
+                            <div class="profile-menu" id="profileMenu">
+                                <a href="/settings">Settings</a>
+                                <a href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="mobile-menu-link mobile-logout-link" href="/logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="course-view-main wrapper">
+        <div class="course-view-top">
+            <nav class="course-breadcrumb" id="courseBreadcrumb" aria-label="Breadcrumb">
+                <a href="/my-classes">My Classes</a>
+                <span aria-hidden="true">›</span>
+                <span id="breadcrumbCourse">Loading...</span>
+            </nav>
+            <div class="course-view-actions">
+                <a class="course-view-link" id="resourcesLink" href="/my-classes">Back to My Classes</a>
+            </div>
+        </div>
+
+        <p id="courseViewStatus" class="ui-status ui-status--loading">Loading your course...</p>
+
+        <div class="course-view-layout" id="courseViewLayout" hidden>
+            <section class="course-view-content">
+                <div class="lesson-player" id="lessonPlayer">
+                    <div class="lesson-player-media" id="lessonPlayerMedia"></div>
+                    <div class="lesson-player-controls">
+                        <button type="button" class="player-control-btn" id="prevLessonBtn" aria-label="Previous lesson">
+                            <i class="fa-solid fa-backward-step"></i>
+                        </button>
+                        <button type="button" class="player-control-btn player-control-btn--primary" id="playPauseBtn" aria-label="Play or pause">
+                            <i class="fa-solid fa-play" id="playPauseIcon"></i>
+                        </button>
+                        <button type="button" class="player-control-btn" id="nextLessonBtn" aria-label="Next lesson">
+                            <i class="fa-solid fa-forward-step"></i>
+                        </button>
+                        <div class="player-progress-wrap">
+                            <div class="player-progress-track">
+                                <div class="player-progress-fill" id="playerProgressFill"></div>
+                            </div>
+                            <span class="player-progress-label" id="playerProgressLabel">0:00 / 0:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lesson-header">
+                    <p class="lesson-eyebrow" id="lessonEyebrow">Lesson 01</p>
+                    <h1 id="lessonTitle">Lesson title</h1>
+                    <div class="lesson-instructor">
+                        <img id="instructorImage" src="../../images/user_pic/profilepic.png" alt="">
+                        <div>
+                            <strong id="instructorName">Chef</strong>
+                            <span id="instructorMeta">Instructor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lesson-overview">
+                    <h2>Lesson Overview</h2>
+                    <p id="lessonOverview">Overview text</p>
+                    <div class="lesson-info-grid">
+                        <article class="lesson-info-card">
+                            <h3>Equipment Needed</h3>
+                            <ul id="equipmentList"></ul>
+                        </article>
+                        <article class="lesson-info-card">
+                            <h3>Key Takeaways</h3>
+                            <ul id="takeawaysList"></ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="course-sidebar">
+                <div class="course-sidebar-header">
+                    <h2>Course Content</h2>
+                    <p id="courseSidebarMeta">0 Lessons</p>
+                    <div class="course-sidebar-progress">
+                        <div class="course-sidebar-progress-bar">
+                            <div class="course-sidebar-progress-fill" id="sidebarProgressFill"></div>
+                        </div>
+                        <span id="sidebarProgressLabel">0% complete</span>
+                    </div>
+                </div>
+                <div class="course-modules" id="courseModules"></div>
+                <button type="button" class="course-next-btn" id="sidebarNextBtn">
+                    Next Lesson
+                    <i class="fa-solid fa-forward-step"></i>
+                </button>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content wrapper">
+            <div>
+                <p>© 2024 COOKING MARKETPLACE. ALL RIGHTS RESERVED.</p>
+            </div>
+            <div>
+                <a href="/html/privacy.html">Privacy</a>
+                <a href="/html/terms.html">Terms</a>
+                <a href="/html/users/contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/users/ui_status.js"></script>
+    <script src="../../js/users/my_classes_shared.js"></script>
+    <script src="../../js/users/course_view.js"></script>
+</body>
+
+</html>

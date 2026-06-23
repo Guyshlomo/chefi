@@ -96,6 +96,12 @@ body {
     font-size: 22px;
 }
 
+.preview-play.is-unavailable,
+.preview-play:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
 .preview-caption {
     position: absolute;
     left: 18px;

@@ -157,9 +157,13 @@ main {
   font-size: 13px;
 }
 
-.my-classes-view-all {
+.dropdown-menu a.dropdown-item.my-classes-view-all {
   font-weight: 700;
-  color: #A93100 !important;
+  color: #A93100;
+}
+
+.dropdown-menu a.dropdown-item.my-classes-view-all:hover {
+  color: #8f2900;
 }
 
 .form-control::placeholder {
@@ -175,11 +179,11 @@ main {
   width: min(32vw, 320px);
 }
 
-.mobile-navbar-search,
-.navbar-actions,
-.mobile-menu-user,
-.mobile-logout-link {
-  display: none !important;
+.navbar.bg-body-tertiary .mobile-navbar-search,
+.navbar.bg-body-tertiary .navbar-actions,
+.navbar.bg-body-tertiary .mobile-menu-user,
+.navbar.bg-body-tertiary .mobile-logout-link {
+  display: none;
 }
 
 .search-icon {
@@ -321,8 +325,8 @@ main {
     box-shadow: 0 16px 34px rgba(27, 28, 27, 0.12);
   }
 
-  .mobile-menu-user {
-    display: flex !important;
+  .navbar.bg-body-tertiary .mobile-menu-user {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
@@ -354,8 +358,8 @@ main {
     flex-shrink: 0;
   }
 
-  .mobile-logout-link {
-    display: inline-flex !important;
+  .navbar.bg-body-tertiary .mobile-logout-link {
+    display: inline-flex;
     margin-top: 12px;
     padding-top: 12px;
     border-top: 1px solid #eaded8;
@@ -378,20 +382,20 @@ main {
     width: 42px;
   }
 
-  .dropdown-menu {
-    position: static !important;
+  .navbar.bg-body-tertiary .navbar-collapse .dropdown-menu {
+    position: static;
     float: none;
     border: 0;
     padding-left: 12px;
     box-shadow: none;
   }
 
-  .profile-container {
-    display: none !important;
+  .navbar.bg-body-tertiary .profile-container {
+    display: none;
   }
 
-  .mobile-navbar-search {
-    display: flex !important;
+  .navbar.bg-body-tertiary .mobile-navbar-search {
+    display: flex;
     order: 2;
     flex: 1 1 auto;
     width: auto;
@@ -407,8 +411,8 @@ main {
     background-color: #FCF9F7;
   }
 
-  .navbar-actions {
-    display: flex !important;
+  .navbar.bg-body-tertiary .navbar-actions {
+    display: flex;
     order: 3;
     align-items: center;
     gap: 8px;

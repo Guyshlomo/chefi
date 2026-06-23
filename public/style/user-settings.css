@@ -148,127 +148,19 @@ body {
 }
 
 .delete-btn {
-    background: #fff !important;
-    color: #991b1b !important;
-    border: 1px solid rgba(153, 27, 27, 0.24) !important;
+    background: #fff;
+    color: #991b1b;
+    border: 1px solid rgba(153, 27, 27, 0.24);
 }
 
-.delete-btn:hover {
-    background: #fff5f5 !important;
-    box-shadow: 0 14px 28px rgba(153, 27, 27, 0.12) !important;
+.settings-card .delete-btn:hover {
+    background: #fff5f5;
+    box-shadow: 0 14px 28px rgba(153, 27, 27, 0.12);
 }
 
 #message {
-    min-height: 24px;
     margin: 18px 0 0;
-    font-weight: 700;
     text-align: center;
-}
-
-#message.loading {
-    color: #57534E;
-    background: #F6F3F1;
-    border: 1px solid #eaded8;
-}
-
-#message.success {
-    color: #1f7a3d;
-}
-
-#message.error {
-    color: #991b1b;
-}
-
-.delete-confirm-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(27, 28, 27, 0.42);
-    backdrop-filter: blur(8px);
-}
-
-.delete-confirm-backdrop.is-visible {
-    display: flex;
-}
-
-.delete-confirm-banner {
-    width: min(100%, 460px);
-    padding: 28px;
-    background: #ffffff;
-    border: 1px solid #eaded8;
-    border-radius: 26px;
-    box-shadow: 0 30px 70px rgba(27, 28, 27, 0.28);
-    animation: confirmIn 0.2s ease-out;
-}
-
-.delete-confirm-icon {
-    width: 52px;
-    height: 52px;
-    display: grid;
-    place-items: center;
-    margin-bottom: 18px;
-    color: #A93100;
-    background: #FCF1EC;
-    border-radius: 18px;
-    font-size: 24px;
-    font-weight: 800;
-}
-
-.delete-confirm-banner h2 {
-    margin: 0 0 10px;
-    color: #1B1C1B;
-    font-family: "Noto Serif", serif;
-    font-size: 30px;
-    line-height: 1.1;
-}
-
-.delete-confirm-banner p {
-    margin: 0;
-    color: #5C4037;
-    font-size: 15px;
-    line-height: 1.6;
-}
-
-.delete-confirm-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 24px;
-}
-
-.delete-confirm-actions button {
-    min-height: 46px;
-    border: 0;
-    border-radius: 14px;
-    cursor: pointer;
-    font: inherit;
-    font-weight: 800;
-}
-
-.cancel-delete {
-    color: #1B1C1B;
-    background: #F6F3F1;
-}
-
-.confirm-delete {
-    color: #fff;
-    background: #991b1b;
-}
-
-@keyframes confirmIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.98);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
 }
 
 @media screen and (max-width: 520px) {
@@ -279,9 +171,5 @@ body {
 
     .settings-card {
         border-radius: 22px;
-    }
-
-    .delete-confirm-actions {
-        grid-template-columns: 1fr;
     }
 }

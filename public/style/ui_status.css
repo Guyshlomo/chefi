@@ -7,6 +7,10 @@
     line-height: 1.5;
 }
 
+.ui-status[hidden] {
+    display: none;
+}
+
 .ui-status--loading {
     color: #57534E;
     background: #F6F3F1;
@@ -26,9 +30,9 @@
 }
 
 .ui-status--empty {
-  color: #57534E;
-  background: #FCF9F7;
-  border: 1px dashed #d6d3d1;
+    color: #57534E;
+    background: #FCF9F7;
+    border: 1px dashed #d6d3d1;
 }
 
 .courses-grid .ui-status,
@@ -38,11 +42,171 @@
 .leaders .ui-status,
 .catagory-content .ui-status,
 .food-categories .ui-status {
-  width: 100%;
+    width: 100%;
 }
 
 .courses-grid .ui-status,
 .recipe-grid .ui-status,
 .popular-container .ui-status {
-  grid-column: 1 / -1;
+    grid-column: 1 / -1;
+}
+
+body.chefi-modal-open {
+    overflow: hidden;
+}
+
+.chefi-toast-host {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.chefi-toast {
+    min-width: min(100vw - 40px, 360px);
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.45;
+    box-shadow: 0 16px 34px rgba(27, 28, 27, 0.18);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.chefi-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chefi-toast--success {
+    color: #166534;
+    background: #ecfdf3;
+    border: 1px solid #bbf7d0;
+}
+
+.chefi-toast--error {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.chefi-toast--loading,
+.chefi-toast--info {
+    color: #57534E;
+    background: #F6F3F1;
+    border: 1px solid #eaded8;
+}
+
+.chefi-confirm-host .chefi-confirm-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(27, 28, 27, 0.42);
+    backdrop-filter: blur(8px);
+}
+
+.chefi-confirm-host .chefi-confirm-backdrop[hidden] {
+    display: none;
+}
+
+.chefi-confirm-dialog {
+    width: min(100%, 460px);
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #eaded8;
+    border-radius: 26px;
+    box-shadow: 0 30px 70px rgba(27, 28, 27, 0.28);
+    animation: chefiConfirmIn 0.2s ease-out;
+}
+
+.chefi-confirm-icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+    color: #A93100;
+    background: #FCF1EC;
+    border-radius: 18px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.chefi-confirm-dialog h2 {
+    margin: 0 0 10px;
+    color: #1B1C1B;
+    font-family: "Noto Serif", serif;
+    font-size: 30px;
+    line-height: 1.1;
+}
+
+.chefi-confirm-message {
+    margin: 0;
+    color: #5C4037;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.chefi-confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.chefi-confirm-actions button {
+    min-height: 46px;
+    border: 0;
+    border-radius: 14px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+}
+
+.chefi-confirm-cancel {
+    color: #1B1C1B;
+    background: #F6F3F1;
+}
+
+.chefi-confirm-accept {
+    color: #fff;
+    background: #A93100;
+}
+
+.chefi-confirm-accept--danger {
+    background: #991b1b;
+}
+
+@keyframes chefiConfirmIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .chefi-toast-host {
+        left: 20px;
+        right: 20px;
+    }
+
+    .chefi-confirm-actions {
+        grid-template-columns: 1fr;
+    }
 }

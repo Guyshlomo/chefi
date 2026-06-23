@@ -1,7 +1,7 @@
 const recipeGrid = document.getElementById("recipeGrid");
 const refreshRecipesBtn = document.getElementById("refreshRecipesBtn");
 
-function renderRecipeInspiration(recipes) {
+async function renderRecipeInspiration(recipes) {
     if (!recipeGrid) {
         return;
     }
@@ -11,17 +11,26 @@ function renderRecipeInspiration(recipes) {
         return;
     }
 
-    recipeGrid.innerHTML = recipes.map((recipe) => `
+    const enrolledIds = await MyClassesShared.getEnrolledCourseIds();
+
+    recipeGrid.innerHTML = recipes.map((recipe) => {
+        const mealId = String(recipe.idMeal);
+        const href = enrolledIds.has(mealId)
+            ? MyClassesShared.getCourseViewUrl({ courseId: mealId })
+            : MyClassesShared.getMealDetailUrl(mealId);
+
+        return `
         <div class="recipe-card">
             <img src="${ChefiUI.escapeHtml(recipe.strMealThumb)}" alt="${ChefiUI.escapeHtml(recipe.strMeal)}">
             <div class="recipe-card-content">
                 <span>${ChefiUI.escapeHtml(recipe.strCategory)}</span>
                 <h3>${ChefiUI.escapeHtml(recipe.strMeal)}</h3>
                 <p>${ChefiUI.escapeHtml(recipe.strArea)} cuisine</p>
-                <a class="recipe-open-btn" href="/meal-detail?id=${ChefiUI.escapeHtml(recipe.idMeal)}">View Course</a>
+                <a class="recipe-open-btn" href="${href}">${enrolledIds.has(mealId) ? "Continue Learning" : "View Course"}</a>
             </div>
         </div>
-    `).join("");
+    `;
+    }).join("");
 }
 
 async function loadRecipeInspiration() {
@@ -41,7 +50,7 @@ async function loadRecipeInspiration() {
         return;
     }
 
-    renderRecipeInspiration(result.data);
+    await renderRecipeInspiration(result.data);
 }
 
 if (refreshRecipesBtn) {

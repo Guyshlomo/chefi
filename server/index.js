@@ -54,6 +54,10 @@ app.get("/meal-detail", requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/html/users/MealDetail.html"));
 });
 
+app.get("/course-view", requireAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/html/users/CourseView.html"));
+});
+
 app.get("/my-classes", requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/html/users/MyClasses.html"));
 });
