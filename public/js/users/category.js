@@ -9,13 +9,13 @@ async function loadCategories() {
         const response = await fetch("/api/home-content/categories");
         const categories = await response.json();
 
-        categoryContainer.innerHTML = categories.map(category => {
-            const searchValue = encodeURIComponent(category.name);
+        categoryContainer.innerHTML = categories.map(({name, icon}) => {
+            const searchValue = encodeURIComponent(name);
 
             return `
                 <a href="/all-courses?search=${searchValue}">
-                    <i class="${category.icon}"></i>
-                    <span>${category.name}</span>
+                    <i class="${icon}"></i>
+                    <span>${name}</span>
                 </a>
             `;
         }).join("");
